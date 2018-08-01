@@ -1,0 +1,60 @@
+.list-box li{
+    padding: 0.3rem 0.42rem 0.3rem 0.3rem;
+    border-bottom: 1px solid #e5e5e5;
+    display: flex;
+}
+.list-box li .img-box{
+    width: 1.8rem;
+    height: 1.8rem;
+    border-radius: 0.05rem;
+    margin-right: 0.3rem;
+    overflow: hidden;
+}
+.list-box li .img-box img{
+    width: 100%;
+    min-height: 100%;
+}
+.list-box .text-box{
+    width: 4.8rem;
+}
+.list-box .text-box h2{
+    font-weight: normal;
+    font-size: 0.36rem;
+    color: #333333;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.list-box .text-box>div{
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.23rem;
+    color: #999999;
+    margin: 0.15rem 0;
+}
+.star-box{
+    padding-left: 0.04rem;
+    margin-right: 0.1rem;
+}
+.icon-star{
+    display: inline-block;
+    width: 0.2rem;
+    height: 0.2rem;
+    background-image: url("../images/icon_star.png");
+    background-repeat: no-repeat;
+    background-size: 0.2rem;
+    margin-left: -0.05rem;
+}
+.icon-star.icon-star-active{
+    background-image: url("../images/icon_star_active.png");
+}
+.list-box .text-box>p>span{
+    font-size: 0.23rem;
+    color: #999999;
+    line-height: 0.24rem;
+    padding-right: 0.15rem;
+}
+.list-box .text-box>p>span:not(:nth-last-child(1)){
+    border-right: 1px solid #999999;
+}
+

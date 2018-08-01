@@ -1,0 +1,221 @@
+/*会员中心样式*/
+.top-bg{
+    width: 100%;
+    height: 4.08rem;
+    background-image: url("../images/user-top-bg.jpg");
+    background-size: 100% 100%;
+    position: relative;
+}
+.top-wrapper{
+    width: 100%;
+    padding-top: 1.26rem;
+}
+.img-box{
+    width: 1.2rem;
+    height: 1.2rem;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 0.04rem solid #ffffff;
+    margin: 0 auto ;
+}
+.img-box img{
+    width: 100%;
+}
+.top-wrapper p{
+    text-align: center;
+}
+.name{
+    font-size: 0.35rem;
+    color: #333333;
+    display: inline-block;
+    margin: 0.02rem 0;
+}
+.name:after{
+    display: inline-block;
+    content: '';
+    width: 0.3rem;
+    height: 0.3rem;
+    margin-left: 0.15rem;
+    background-image: url("../images/icon-vip.png");
+    background-size: 100%;
+}
+.deadline{
+    font-size: 0.23rem;
+    color: #999999;
+}
+.option-bar{
+    width: 100%;
+    padding: 0.2rem 0;
+    background-color: #ffffff;
+    border: 1px solid #e5e5e5;
+    display: flex;
+    align-items: center;
+}
+.option-item{
+    width: 50%;
+    text-align: center;
+}
+.option-item>.score{
+    font-size: 0.36rem;
+    color: #ff6230;
+}
+.option-item>p{
+    color: #333333;
+    font-size: 0.25rem;
+}
+.option-item:nth-child(1){
+    border-right: 1px solid #e5e5e5;
+}
+.icon-comment{
+    display: inline-block;
+    width: 0.46rem;
+    height: 0.4rem;
+    background-image: url("../images/icon-comment.png");
+    background-size: 0.46rem 0.4rem;
+}
+.option-box{
+    margin-top: 0.2rem;
+    background-color: #ffffff;
+}
+.option-box li{
+    padding: 0.3rem 0.35rem 0.3rem 0.3rem;
+    font-size: 0.28rem;
+    color: #333333;
+    position: relative;
+}
+.option-box li:not(:nth-last-child(1)){
+    border-bottom: 1px solid #e5e5e5;
+}
+.option-box li .icon-arrow-right{
+    display: inline-block;
+    width: 0.11rem;
+    height: 0.22rem;
+    background-image: url(../images/icon-arrow-right.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    float: right;
+    margin-top: 0.1rem;
+}
+
+/*年度清单样式*/
+
+.container-wrapper{
+    /*padding: 0.6rem 0.3rem 0.3rem;*/
+    background-image: url("../images/user-container-bg.png");
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    background-position: center top;
+}
+.container-wrapper>div{
+    width: 100%;
+    height: calc(100% - 0.9rem);
+    position: absolute;
+    top: 0.6rem;
+}
+.content-wrapper{
+    width: 6.3rem;
+    background-image: url("../images/user-wrapper-bg.png");
+    background-size: 100% 100%;
+    margin:auto;
+    position: relative;
+
+    box-shadow: 0px 0.05rem 0.15rem 0px;
+    rgba(153, 153, 153, 0.25);
+    padding: 0 0.3rem 0.1rem;
+}
+.date-box{
+    padding-bottom: 0.04rem;
+    padding-top: 0.5rem;
+    border-bottom: 0.02rem solid #333333;
+    margin-bottom: 0.4rem;
+}
+.date-box p{
+    padding-bottom: 0.2rem;
+    border-bottom: 0.06rem solid #333333;
+    font-size: 0.24rem;
+    color: #333333;
+}
+.date-box p:after{
+    content: '';
+    display: inline-block;
+    width: 0.3rem;
+    height: 0.3rem;
+    background-image: url("../images/icon-bill.png");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    float: right;
+    margin-top: 0.05rem;
+}
+.title{
+    margin-bottom: 0.8rem;
+}
+.title span{
+    font-size: 0.36rem;
+    color: #333333;
+}
+.consume .title{
+    border-left: 0.04rem solid #333333;
+    padding-left: 0.04rem;
+    line-height: 0.35rem;
+}
+.consume .title>span:nth-child(1){
+    display: inline-block;
+    border-left: 0.01rem solid #333333;
+    padding-left: 0.15rem;
+    line-height: 0.35rem;
+}
+.consume .title>span:nth-child(1):after{
+    content: '';
+    display: inline-block;
+    width: 0.3rem;
+    height: 0.3rem;
+    background-image: url("../images/icon-spend.png");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    margin-left: 0.2rem;
+}
+.consume .title .money{
+    float: right;
+}
+.consume,.expensive-most,.satisfy-most{
+    margin-bottom: 0.8rem;
+}
+.list li{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.list li:not(:nth-last-child(1)){
+    margin-bottom: 0.2rem;
+}
+.list li>span{
+    display: inline-block;
+    line-height: 0.44rem;
+    font-size: 0.24rem;
+    color: #999999;
+}
+.list li>span:nth-child(1):before{
+    content: '';
+    display: inline-block;
+    width: 0.33rem;
+    height: 0.44rem;
+    background-size: 100%;
+    margin-right: 0.23rem;
+}
+.list li>span.rank1:before{
+    background-image: url("../images/icon-first.png");
+}
+.list li>span.rank2:before{
+    background-image: url("../images/icon-second.png");
+}
+.list li>span.rank3:before{
+    background-image: url("../images/icon-third.png");
+}
+.list li>span:nth-child(1){
+    display: flex;
+    align-items: center;
+}
+.chart-box{
+    width: 100%;
+    height: 2.8rem;
+}

@@ -1,0 +1,138 @@
+.tool-bar{
+    padding: 0 0.3rem;
+    height: 0.98rem;
+    display: flex;
+    justify-content: space-between;
+    background: #ffffff;
+    box-shadow: 0px 5px 10px 0px rgba(102, 102, 102, 0.15);
+    position: relative;
+}
+.tool-bar>div{
+    width: 3.1rem;
+    height: 0.98rem;
+    text-align: center;
+    line-height: 0.98rem;
+    color: #666666;
+    font-size: 0.32rem;
+}
+.tool-bar>div.active{
+    color: #ff6230;
+    border-bottom: 1px solid #ff6230;
+}
+.comment-list li{
+    display: flex;
+    padding: 0.3rem 0.28rem 0.34rem 0.38rem;
+    border-bottom: 1px solid #e5e5e5;
+    background: #ffffff;
+}
+.comment-list .user-icon{
+    width: 1.04rem;
+    height: 1.04rem;
+    /*border-radius: 50%;*/
+    overflow: hidden;
+    margin-right: 0.2rem;
+}
+.comment-list .user-icon img{
+    width: 100%;
+}
+.com-content>.com-info{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.2rem;
+}
+.com-info .name{
+    font-size: 0.31rem;
+    color: #333333;
+}
+.com-info .name:after{
+    content: '';
+    display: inline-block;
+    width: 0.3rem;
+    height: 0.3rem;
+    margin-left: 0.15rem;
+    background-image: url(../images/icon-vip.png);
+    background-size: 100%;
+    position: relative;
+    top: 0.03rem;
+}
+.com-info .date{
+    font-size: 0.23rem;
+    color: #999999;
+}
+.score-box{
+    margin-bottom: 0.3rem;
+}
+.score-box>span{
+    font-size: 0.24rem;
+    color: #333333;
+}
+.score-box>span.icon-star{
+    display: inline-block;
+    width: 0.2rem;
+    height: 0.2rem;
+    background-image: url("../images/icon_star.png");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    margin-right: -0.05rem;
+}
+.score-box>span.icon-star-active{
+    background-image: url("../images/icon_star_active.png");
+}
+.com-content>p{
+    font-size: 0.27rem;
+    color: #333333;
+    margin-bottom: 0.3rem;
+}
+.com-content>span{
+    font-size: 0.23rem;
+    color: #999999;
+}
+
+
+/*设置评论页样式*/
+.set-star-box{
+    padding: 0.4rem 0.6rem 0.4rem 0.3rem;
+    background: #ffffff;
+    margin-bottom: 0.2rem;
+}
+.set-star-box>span:nth-child(1){
+    font-size: 0.32rem;
+    color: #333333;
+    line-height: 0.54rem;
+    float: left;
+    margin-right: 0.4rem;
+}
+.set-star-box>.icon-star{
+    display: inline-block;
+    width: 0.44rem;
+    height: 0.44rem;
+    margin-right: 0.1rem;
+    background-image: url("../images/icon_star.png");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+.set-star-box .score{
+    color: #ff6230;
+    font-size: 0.32rem;
+    float: right;
+}
+.set-comment-box{
+    height: 4rem;
+    background: #ffffff;
+    padding: 0.4rem 0.3rem;
+}
+.set-comment-box textarea {
+    width: 6.9rem;
+    border: none;
+}
+.confirm-btn{
+    width: 100%;
+    height: 0.88rem;
+    text-align: center;
+    line-height: 0.88rem;
+    background-color: #bbbbbb;
+    color: #fffefe;
+    position: absolute;
+    bottom: 0;
+}
