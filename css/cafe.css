@@ -83,6 +83,7 @@
     bottom: 0;
     display: flex;
     align-items: center;
+    display: none;
 }
 .bottom-box>div:nth-child(1){
     width: 4.9rem;
@@ -113,4 +114,62 @@
     line-height: 1rem;
     text-align: center;
     background-color: #999999;
+}
+
+.cafe-box{
+    background: #ffffff;
+    margin-top: 0.2rem;
+}
+.cafe-box>.tool-bar{
+    display: flex;
+    justify-content: space-around;
+    border-bottom: 1px solid #e5e5e5;
+}
+.cafe-box>.tool-bar>div{
+    padding: 0.35rem 0;
+    font-size: 0.32rem;
+    color: #333333;
+}
+.cafe-box>.tool-bar>div.active{
+    color: #ff6230;
+}
+
+.food-box{
+    display: none;
+}
+
+.store-box>div{
+    padding: 0.3rem;
+}
+.store-box>div h2{
+    font-size: 0.32rem;
+    color: #333333;
+    margin-bottom: 0.3rem;
+}
+.storeInfo .img-slider{
+    width: 6.9rem;
+    height: 2.5rem;
+}
+.storeInfo .img-slider>div{
+    overflow: hidden;
+}
+.storeInfo .img{
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 0.05rem;
+    overflow: hidden;
+    margin-right: 0.3rem;
+    float: left;
+}
+.storeInfo .img img{
+    width: 100%;
+    min-height: 100%;
+}
+.storeInfo p{
+    font-size: 0.24rem;
+    color: #666666;
+}
+.storeInfo p>span{
+    color: #333333;
+    font-weight: bold;
 }
