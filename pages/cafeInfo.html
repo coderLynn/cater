@@ -51,12 +51,31 @@
                     <div>商家</div>
                 </div>
                 <div class="food-box">
-                    <ul class="cat-box">
-                        <li>热销</li>
-                    </ul>
-                    <ul class="food-wrapper">
-                        <li></li>
-                    </ul>
+                    <div class="food-box-wrapper">
+                        <div class="cat-box" ref="catBox">
+                            <ul>
+                                <li>热销</li>
+                                <li>米饭小吃</li>
+                                <li>工作套餐</li>
+                                <li>招牌拌菜</li>
+                                <li>特色啃卤</li>
+                                <li>果汁饮料</li>
+                            </ul>
+                        </div>
+                        <div class="food-wrapper" ref="foodWrapper">
+                            <ul>
+                                <li></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="bottom-box">
+                        <div>
+                            <span class="unchoose">还未选购商品</span>
+                        </div>
+                        <div>
+                            <span>去结算</span>
+                        </div>
+                    </div>
                 </div>
                 <div class="store-box">
                     <div class="storeInfo">
@@ -73,7 +92,7 @@
                             产基地总占地约2000亩，共投资4亿元，存栏肉牛3万头，可实现
                             年屠宰量10万头，是农业产业化重点项目。</p>
                     </div>
-                    <div>
+                    <div class="cafeService">
                         <h2>餐厅服务</h2>
                         <div>
                             <span>免费停车场</span>
@@ -86,9 +105,12 @@
                         <h2>商家地址</h2>
                         <p>成都市武侯区天晖南街九方购物中心6楼</p>
                     </div>
-                    <div>
+                    <div class="storeTel">
                         <h2>商家电话</h2>
                         <p>028 85123350</p>
+
+                    </div>
+                    <div class="storeCertify">
                         <h2>商家资质</h2>
                         <div>
                             <div><img src="../images/hotel_item.png" alt=""></div>
@@ -98,17 +120,101 @@
 
 
                 </div>
-                <div class="comment-box"></div>
+                <div class="comment-box">
+                    <div>
+                        <h3>最新评价</h3>
+                        <span>更多评价 (536条)</span>
+                    </div>
+                    <ul>
+                        <li>
+                            <div class="user-img">
+                                <img src="../images/user-img.png" alt="">
+                            </div>
+                            <div class="content">
+                                <div>
+                                    <span class="name">小仙女</span>
+                                    <span class="date">2018-07-07发表</span>
+                                </div>
+                                <p class="score">
+                                    <span>打分</span>
+                                    <span class="icon-star active"></span>
+                                    <span class="icon-star"></span>
+                                    <span class="icon-star"></span>
+                                    <span class="icon-star"></span>
+                                    <span class="icon-star"></span>
+                                </p>
+                                <p class="text">2人套餐，两个人简直吃不完，良心推荐，服务员太度也很好，菜品新鲜，颜值口感都好。</p>
+                                <span>2人118套餐</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="user-img">
+                                <img src="../images/user-img.png" alt="">
+                            </div>
+                            <div class="content">
+                                <div>
+                                    <span class="name">小仙女</span>
+                                    <span class="date">2018-07-07发表</span>
+                                </div>
+                                <p class="score">
+                                    <span>打分</span>
+                                    <span class="icon-star active"></span>
+                                    <span class="icon-star"></span>
+                                    <span class="icon-star"></span>
+                                    <span class="icon-star"></span>
+                                    <span class="icon-star"></span>
+                                </p>
+                                <p class="text">2人套餐，两个人简直吃不完，良心推荐，服务员太度也很好，菜品新鲜，颜值口感都好。</p>
+                                <span>2人118套餐</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="user-img">
+                                <img src="../images/user-img.png" alt="">
+                            </div>
+                            <div class="content">
+                                <div>
+                                    <span class="name">小仙女</span>
+                                    <span class="date">2018-07-07发表</span>
+                                </div>
+                                <p class="score">
+                                    <span>打分</span>
+                                    <span class="icon-star active"></span>
+                                    <span class="icon-star"></span>
+                                    <span class="icon-star"></span>
+                                    <span class="icon-star"></span>
+                                    <span class="icon-star"></span>
+                                </p>
+                                <p class="text">2人套餐，两个人简直吃不完，良心推荐，服务员太度也很好，菜品新鲜，颜值口感都好。</p>
+                                <span>2人118套餐</span>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="user-img">
+                                <img src="../images/user-img.png" alt="">
+                            </div>
+                            <div class="content">
+                                <div>
+                                    <span class="name">小仙女</span>
+                                    <span class="date">2018-07-07发表</span>
+                                </div>
+                                <p class="score">
+                                    <span>打分</span>
+                                    <span class="icon-star active"></span>
+                                    <span class="icon-star"></span>
+                                    <span class="icon-star"></span>
+                                    <span class="icon-star"></span>
+                                    <span class="icon-star"></span>
+                                </p>
+                                <p class="text">2人套餐，两个人简直吃不完，良心推荐，服务员太度也很好，菜品新鲜，颜值口感都好。</p>
+                                <span>2人118套餐</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
-        <div class="bottom-box">
-            <div>
-                <span class="unchoose">还未选购商品</span>
-            </div>
-            <div>
-                <span>去结算</span>
-            </div>
-        </div>
+
     </section>
 
 <script src="../js/jquery-1.8.3.min.js"></script>
@@ -155,6 +261,7 @@
             mounted(){
                 setTimeout(()=>{
                     this.init_scroll();
+                    this._setSliderWidth();
                     this.init_imgScroll();
 
                 },20);
@@ -172,7 +279,7 @@
                 _setSliderWidth(isResize){
                     this.children = this.$refs.sliderGroup.children;
                     let width = 0;
-                    let sliderWidth = this.$refs.slider.clientWidth;
+                    let sliderWidth = this.$refs.imgScroll.clientWidth;
                     for(let i = 0;i<this.children.length;i++){
                         let child = this.children[i];
                         // addClass(child,'slider-item');
