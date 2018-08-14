@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/order.css">
+    <title>我的订单</title>
+</head>
+<body>
+<section class="container">
+    <div class="scroll" ref="scroll">
+        <div>
+            <div class="list-bar-box">
+                <div class="bar-item">
+            <span class="icon icon-pay">
+                <span class="num">1</span>
+            </span>
+                    <span>待付款</span>
+                </div>
+                <div class="bar-item">
+            <span class="icon icon-setout">
+                <span class="num">1</span>
+            </span>
+                    <span>待使用</span>
+                </div>
+                <div class="bar-item">
+                    <span class="icon icon-comment"></span>
+                    <span>待评价</span>
+                </div>
+                <div class="bar-item">
+                    <span class="icon icon-payback"></span>
+                    <span>待退款</span>
+                </div>
+                <div class="bar-item">
+                    <span class="icon icon-order"></span>
+                    <span>全部订单</span>
+                </div>
+            </div>
+            <div class="data-box">
+                <h2>最近订单</h2>
+                <ul class="data-list">
+                    <li class="order-item">
+                        <div class="item-head">
+                            <span>订单号:Y201507041586</span>
+                            <span>待付款</span>
+                        </div>
+                        <div class="item-content">
+                            <div class="img-box">
+                                <img src="../images/hotel_item.png" alt="">
+                            </div>
+                            <div class="detail">
+                                <h3>蓉和小厨（高新店）</h3>
+                                <p>宫爆鸡丁x1、水煮鱼x1、麻辣小龙虾x1、炒时蔬...</p>
+                                <p>座位：12号桌，2人</p>
+                                <p>总价：¥239.00</p>
+                            </div>
+                        </div>
+                        <div class="btn-box">
+                            <span class="btn-pay">去支付</span>
+                        </div>
+                    </li>
+                    <li class="order-item">
+                        <div class="item-head">
+                            <span>订单号:Y201507041586</span>
+                            <span>待付款</span>
+                        </div>
+                        <div class="item-content">
+                            <div class="img-box">
+                                <img src="../images/hotel_item.png" alt="">
+                            </div>
+                            <div class="detail">
+                                <h3>渝味人家（高新理想中心店）</h3>
+                                <p>宫爆鸡丁x1、水煮鱼x1、麻辣小龙虾x1、炒时蔬...</p>
+                                <p>座位：12号桌，2人</p>
+                                <p>总价：¥239.00</p>
+                            </div>
+                        </div>
+                        <div class="btn-box">
+                            <span class="btn-pay">付款</span>
+                            <span class="btn-comment">评价</span>
+                        </div>
+                    </li>
+                    <li class="order-item">
+                        <div class="item-head">
+                            <span>订单号:Y201507041586</span>
+                            <span>待付款</span>
+                        </div>
+                        <div class="item-content">
+                            <div class="img-box">
+                                <img src="../images/hotel_item.png" alt="">
+                            </div>
+                            <div class="detail">
+                                <h3>蓉和小厨（高新店）</h3>
+                                <p>宫爆鸡丁x1、水煮鱼x1、麻辣小龙虾x1、炒时蔬...</p>
+                                <p>座位：12号桌，2人</p>
+                                <p>总价：¥239.00</p>
+                            </div>
+                        </div>
+                        <div class="btn-box">
+                            <span class="btn-pay">付款</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="../js/jquery-1.8.3.min.js"></script>
+<script src="../js/vue.js"></script>
+<script src="https://unpkg.com/better-scroll/dist/bscroll.min.js"></script>
+<script src="../js/flexble.js"></script>
+
+<script>
+
+    var index = new Vue({
+        el:'.container',
+        data:{},
+        props:{
+            probeType:{
+                type:Number,
+                default:1
+            },
+            click:{
+                type:Boolean,
+                default:true
+            },
+            data:{
+                type:Array,
+                default:null
+            },
+            listenScroll:{
+                type:Boolean,
+                default:false
+            },
+            pullup:{
+                type:Boolean,
+                default:false,
+            },
+            beforeScroll:{
+                type:Boolean,
+                default:false
+            },
+            refreshDelay:{
+                type:Number,
+                default:20
+            }
+        },
+        created(){
+
+        },
+        mounted(){
+            setTimeout(this.init_scroll,20);
+        },
+        methods:{
+            init_scroll:function () {
+                if(!this.$refs.scroll){
+                    return
+                }
+                this.scroll = new BScroll(this.$refs.scroll,{
+                    probeType:this.probeType,
+                    click:this.click
+                })
+            },
+
+        }
+    })
+</script>
+
+</body>
+</html>

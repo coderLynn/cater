@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/order.css">
+    <title>订单详情</title>
+</head>
+<body>
+
+<section class="container" ref="scroll">
+    <div class="container-wrapper">
+        <div class="order-status-box">
+            <div class="order-status">
+                <div>
+                    <span class="status">订单已完成</span>
+                    <span class="detail">详情</span>
+                </div>
+                <p>在线支付：<span class="price">¥239</span></p>
+                <span class="time">时间：2018-07-04:  15:15</span>
+            </div>
+            <div class="tool-bar">
+                <span>评价</span>
+                <span>再次预订</span>
+            </div>
+        </div>
+        <div class="totel-info-box">
+            <div class="hotel-info cafe-info">
+                <div>
+                    <span class="name">鲁西肥牛（高新店）</span>
+                    <span class="view">商家信息</span>
+                </div>
+                <p>人数：2人</p>
+                <span>座位：大厅</span>
+                <span>地点：500m | 武侯区高新区天泰路338号</span>
+            </div>
+            <div class="tool-bar">
+                <span>查看路线</span>
+                <span>联系商家</span>
+            </div>
+        </div>
+        <div class="checked-info">
+            <div class="title">菜单详情</div>
+            <div>
+                <p>锅底 3 选 2（可重复选）</p>
+                <ul>
+                    <li><span>清油麻辣锅（1份）</span><span>￥10</span></li>
+                    <li><span>老坛酸菜锅（1份）</span><span>￥10</span></li>
+                </ul>
+            </div>
+            <div>
+                <p>荤菜</p>
+                <ul>
+                    <li><span>清油麻辣锅（1份）</span><span>￥10</span></li>
+                    <li><span>老坛酸菜锅（1份）</span><span>￥10</span></li>
+                </ul>
+            </div>
+            <div>
+                <p>素菜</p>
+                <ul>
+                    <li><span>土豆（1份）</span><span>￥10</span></li>
+                    <li><span>藕片（1份）</span><span>￥10</span></li>
+                </ul>
+            </div>
+        </div>
+        <div class="bill-info">
+            <div class="title">发票信息</div>
+            <ul class="list">
+                <li><span>发票明细 </span><span>餐饮费  239元</span></li>
+                <li><span>发票抬头  </span><span>sfgrfg8</span></li>
+                <li><span>纳税人识别号</span><span>12345689796641666</span></li>
+            </ul>
+        </div>
+        <div class="order-info">
+            <div class="title">订单信息</div>
+            <ul class="list">
+                <li><span>订单号</span><span>20180704963</span></li>
+                <li><span>支付方式</span><span>在线支付</span></li>
+                <li><span>下单时间</span><span>2018-07-04  08:57</span></li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<script src="../js/jquery-1.8.3.min.js"></script>
+<script src="../js/vue.js"></script>
+<script src="https://unpkg.com/better-scroll/dist/bscroll.min.js"></script>
+<script src="../js/flexble.js"></script>
+
+<script>
+    var index = new Vue({
+        el:'.container',
+        data:{},
+        props:{
+            probeType:{
+                type:Number,
+                default:1
+            },
+            click:{
+                type:Boolean,
+                default:true
+            },
+            data:{
+                type:Array,
+                default:null
+            },
+            listenScroll:{
+                type:Boolean,
+                default:false
+            },
+            pullup:{
+                type:Boolean,
+                default:false,
+            },
+            beforeScroll:{
+                type:Boolean,
+                default:false
+            },
+            refreshDelay:{
+                type:Number,
+                default:20
+            }
+        },
+        created(){
+
+        },
+        mounted(){
+            setTimeout(this.init_scroll,20);
+        },
+        methods:{
+            init_scroll:function () {
+                if(!this.$refs.scroll){
+                    return
+                }
+                this.scroll = new BScroll(this.$refs.scroll,{
+                    probeType:this.probeType,
+                    click:this.click
+                })
+            },
+        }
+    })
+</script>
+</body>
+</html>

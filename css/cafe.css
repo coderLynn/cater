@@ -83,7 +83,7 @@
     bottom: 0;
     display: flex;
     align-items: center;
-    display: none;
+    /*display: none;*/
 }
 .bottom-box>div:nth-child(1){
     width: 4.9rem;
@@ -142,7 +142,8 @@
     height: 8.95rem;
     display: flex;
 }
-.food-box-wrapper .cat-box ul{
+.food-box-wrapper .cat-box ul,.food-box-wrapper .cat-box{
+    width: 1.6rem;
     background-color: #f2f2f2;
 }
 .cat-box ul li{
@@ -150,8 +151,77 @@
     color: #666666;
     padding: 0.4rem 0.2rem;
 }
-
-
+.food-wrapper{
+    padding: 0 0.3rem 0 0.2rem;
+}
+.food-wrapper>p{
+    font-size: 0.2rem;
+    color: #999999;
+    margin-top: 0.4rem;
+    margin-bottom: 0.5rem;
+}
+.food-wrapper>p>span{
+    font-size: 0.24rem;
+    color: #666666;
+}
+.food-wrapper li{
+    display: flex;
+}
+.food-wrapper li .item-img{
+    width: 2rem;
+    height: 2rem;
+    overflow: hidden;
+    margin-right: 0.2rem;
+}
+.food-wrapper li img{
+    width: 100%;
+}
+.food-wrapper .item-content h2{
+    font-size: 0.3rem;
+    color: #333333;
+    margin-bottom: 0.2rem;
+}
+.food-wrapper .item-content p{
+    font-size: 0.23rem;
+    color: #666666;
+    margin-bottom: 0.6rem;
+}
+.food-wrapper .item-content>div{
+    width: 3.28rem;
+    display: flex;
+    justify-content: space-between;
+}
+.food-wrapper .item-content>div p{
+    color: #ff6230;
+    font-size: 0.24rem;
+}
+.food-wrapper .item-content>div .price{
+    font-size: 0.36rem;
+    display: inline-block;
+    margin-right: 0.05rem;
+}
+.food-wrapper .item-content>div>div{
+    display: flex;
+}
+.food-wrapper .item-content>div .del-btn{
+    display: inline-block;
+    width: 0.46rem;
+    height: 0.46rem;
+    background-image: url("../images/icon-delete.png");
+    background-size: 100%;
+}
+.food-wrapper .item-content>div .add-btn{
+    display: inline-block;
+    width: 0.46rem;
+    height: 0.46rem;
+    background-image: url("../images/icon-add.png");
+    background-size: 100%;
+}
+.food-wrapper .item-content>div .num{
+    font-size: 0.24rem;
+    color: #333333;
+    margin: 0 0.2rem;
+}
 
 
 .store-box>div{
@@ -284,4 +354,55 @@
 .comment-box .content>span{
     font-size: 0.23rem;
     color: #999999;
+}
+
+/*订单用餐信息填写*/
+.write-info{
+    width: 100%;
+    height: 100%;
+    background: #F2F2F2;
+    position: absolute;
+    top: 0;
+    display: none;
+}
+.write-info li{
+    padding: 0.3rem;
+    font-size: 0.32rem;
+    display: flex;
+    background: #ffffff;
+}
+.write-info li span{
+    width: 2rem;
+    color: #666666;
+}
+.write-info li input{
+    color: #333333;
+    border: none;
+    outline: none;
+}
+.write-info .chose{
+    display: flex;
+    background: #ffffff;
+    margin-top: 0.2rem;
+    padding: 0.3rem;
+    font-size: 0.36rem;
+}
+.write-info .chose>span:nth-child(1){
+    width: 2rem;
+    color: #666666;
+}
+.write-info .btn{
+    width: 6.9rem;
+    height: 0.8rem;
+    text-align: center;
+    color: #ffffff;
+    line-height: 0.8rem;
+    font-size: 0.36rem;
+    position: absolute;
+    bottom: 0.3rem;
+    background-color: #ff6230;
+    border-radius: 0.4rem;
+    left: 0;
+    right: 0;
+    margin: auto;
 }
