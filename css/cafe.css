@@ -595,8 +595,8 @@
     color: #666666;
 }
 .chose-scale .name-box .icon-back{
-    right: 0;
-    top: 0;
+    /*right: 0;*/
+    /*top: 0;*/
 }
 .chose-scale .scale-box p{
     font-size: 0.28rem;
@@ -618,4 +618,5 @@
 }
 .chose-scale .btn{
     margin-top: 0.3rem;
+    position: static;
 }

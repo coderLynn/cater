@@ -1,0 +1,96 @@
+.banner-box{
+    height: 4.1rem;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+.banner-box>img{
+    width: 100%;
+    min-height: 100%;
+}
+.box-wrapper{
+    width: 6.9rem;
+    height: 3.48rem;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    background: #ffffff;
+    border-radius: 0.05rem;
+}
+.box-wrapper .top{
+    padding: 0.3rem 0.6rem;
+}
+.box-wrapper .top>p{
+    text-align: center;
+    font-size: 0.28rem;
+    color: #666666;
+    margin-bottom: 0.25rem;
+}
+.box-wrapper .top>h3{
+    text-align: center;
+    font-size: 0.32rem;
+    color: #333333;
+    margin-bottom: 0.1rem;
+}
+.box-wrapper .top>span{
+    display: block;
+    text-align: center;
+    font-size: 0.24rem;
+    color: #999999;
+}
+.bottom{
+    background: #f2f2f2;
+    display: flex;
+    border-radius: 0 0 0.05rem 0.05rem ;
+}
+.bottom>span{
+    width: 50%;
+    padding: 0.25rem 0;
+    font-size: 0.32rem;
+    color: #666666;
+    text-align: center;
+}
+.bottom>span:nth-child(1){
+    border-right: 1px solid #e5e5e5;
+}
+.food-list{
+    background: #ffffff;
+}
+.food-list>p{
+    font-size: 0.32rem;
+    color: #333333;
+    padding: 0.3rem;
+    background: #ffffff;
+}
+.food-list>div{
+    background: #F2F2F2;
+    display: flex;
+    padding: 0.2rem 0.3rem;
+    margin-bottom: 0.1rem;
+}
+.food-list>div .img-box{
+    width: 1.2rem;
+    height: 1.2rem;
+    margin-right: 0.2rem;
+    overflow: hidden;
+}
+img{
+    width: 100%;
+}
+.food-list>div .text{
+    width: 5.4rem;
+}
+.food-list>div .text p{
+    display: flex;
+    justify-content: space-between;
+}
+.dex-box li{
+    display: flex;
+    padding: 0.3rem 0.3rem 0;
+}
+.dex-box li span{
+    width: 50%;
+}
