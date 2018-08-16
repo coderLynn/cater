@@ -17,11 +17,11 @@
     left: 0;
     right: 0;
     margin: auto;
-    background: #ffffff;
     border-radius: 0.05rem;
 }
 .box-wrapper .top{
     padding: 0.3rem 0.6rem;
+    background: #ffffff;
 }
 .box-wrapper .top>p{
     text-align: center;
@@ -89,8 +89,68 @@ img{
 }
 .dex-box li{
     display: flex;
-    padding: 0.3rem 0.3rem 0;
+    padding: 0.3rem;
+    flex-wrap: wrap;
 }
 .dex-box li span{
     width: 50%;
+    font-size: 0.28rem;
+    color: #666666;
+    margin-bottom: 0.1rem;
+}
+
+.food-list .box2{
+    border-top: 0.2rem solid #F2F2F2;
+}
+.food-list .box2 li{
+    padding: 0.3rem 0.5rem 0.3rem 0.3rem;
+    color: #333333;
+    font-size: 0.32rem;
+    display: flex;
+}
+.food-list .box2 li:not(:nth-last-child(1)){
+    border-bottom: 1px solid #e5e5e5;
+}
+.food-list .box2 li>span:nth-child(1){
+    width: 30%;
+}
+.food-list .box2 input{
+    border: none;
+    outline: none;
+}
+
+.bottom-box{
+    height: 1rem;
+    position: fixed;
+    bottom: 0;
+    background: #ffffff;
+    display: flex;
+    /*z-index: 6;*/
+}
+.bottom-box>div:nth-child(1){
+    width: 4.3rem;
+    padding: 0 0.3rem;
+    display: flex;
+    line-height: 1rem;
+    justify-content: space-between;
+    border-top: 1px solid #e5e5e5;
+}
+.bottom-box>div:nth-child(1)>span:nth-child(1){
+    font-size: 0.28rem;
+    color: #ff6230;
+}
+.bottom-box>div:nth-child(1)>span:nth-child(2){
+    font-size: 0.24rem;
+    color: #999999;
+}
+.bottom-box span>span{
+    font-weight: bold;
+}
+.bottom-box .sub-btn{
+    width: 2.6rem;
+    background-color: #ff6230;
+    text-align: center;
+    color: #fffefe;
+    font-size: 0.32rem;
+    line-height: 1rem;
 }
