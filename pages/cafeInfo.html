@@ -46,11 +46,11 @@
             </div>
             <div class="cafe-box">
                 <div class="tool-bar">
-                    <div class="active">点餐</div>
-                    <div>评价</div>
-                    <div>商家</div>
+                    <div @click="showPanel(1)" :class="{active:showFood}">点餐</div>
+                    <div @click="showPanel(2)" :class="{active:showComment}">评价</div>
+                    <div @click="showPanel(3)" :class="{active:showStore}">商家</div>
                 </div>
-                <div class="food-box">
+                <div v-show="showFood" class="food-box">
                     <div class="food-box-wrapper">
                         <div class="cat-box" ref="catBox">
                             <ul>
@@ -131,7 +131,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="store-box">
+                <div v-show="showStore" class="store-box">
                     <div class="storeInfo">
                         <h2>商家信息</h2>
                         <div class="img-slider" ref="imgScroll">
@@ -171,10 +171,8 @@
                             <div><img src="../images/hotel_item.png" alt=""></div>
                         </div>
                     </div>
-
-
                 </div>
-                <div class="comment-box">
+                <div v-show="showComment" class="comment-box">
                     <div>
                         <h3>最新评价</h3>
                         <span>更多评价 (536条)</span>
@@ -358,7 +356,7 @@
                 </div>
             </div>
         </div>
-        <div class="chose-scale">
+        <div v-show="showChoseScale" class="chose-scale">
             <div class="chose-scale-wrapper">
                 <div class="name-box">
                     <div class="img-box"><img src="../images/hotel_item.png" alt=""></div>
@@ -367,7 +365,7 @@
                         <p>已选：<span>清油麻辣</span></p>
                         <p class="price">￥<span>98</span></p>
                     </div>
-                    <span class="icon-back"></span>
+                    <span @click="_hideChoseScale" class="icon-back"></span>
                 </div>
                 <div class="scale-box">
                     <div>
@@ -388,19 +386,23 @@
                     </div>
                 </div>
                 <div class="btn">选好了</div>
-
             </div>
         </div>
     </section>
 
 <script src="../js/jquery-1.8.3.min.js"></script>
 <script src="../js/vue.js"></script>
-<script src="https://unpkg.com/better-scroll/dist/bscroll.min.js"></script>
+<script src="../js/bscroll.js"></script>
 <script src="../js/flexble.js"></script>
     <script>
         var index = new Vue({
             el:'.container',
-            data:{},
+            data:{
+                showChoseScale:false,
+                showFood:false,
+                showStore:true,
+                showComment:false,
+            },
             props:{
                 probeType:{
                     type:Number,
@@ -480,6 +482,26 @@
                         eventPassthrough:'horizontal',
                         click:this.click
                     })
+                },
+                //显示 选择规格层
+                _showChoseScale:function(){
+                    this.showChoseScale = true;
+                },
+                //隐藏 选择规格层
+                _hideChoseScale:function () {
+                    this.showChoseScale = false;
+                },
+                showPanel:function (index) {
+                    if(index==1){
+                        this.showFood = true;
+                        this.showStore = this.showComment =false;
+                    }else if(index==2){
+                        this.showComment = true;
+                        this.showStore = this.showFood =false;
+                    }else if(index==3){
+                        this.showStore = true;
+                        this.showComment = this.showFood =false;
+                    }
                 }
 
             }

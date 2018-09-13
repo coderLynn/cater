@@ -1,3 +1,66 @@
+.scroll-container{
+    width: 100%;
+    padding-top: 1rem;
+    height: calc(100% - 3.12rem);
+}
+.search-bar{
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+.search-bar.active{
+    background: rgba(0,0,0,0.5);
+    height: 100%;
+}
+.search-wrapper{
+    background: #ffffff;
+}
+.search-wrapper>div{
+    padding: 0.2rem 0.3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0px 5px 20px 0px rgba(170, 170, 170, 0.35);
+}
+.search-wrapper .icon-find{
+    width: 0.3rem;
+    height: 0.3rem;
+    background-image: url(../images/icon-find.png);
+    background-size: 0.3rem;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: absolute;
+    padding: 0.15rem;
+}
+.search-wrapper>div>input{
+    width: 5.4rem;
+    height: 0.56rem;
+    background: #F2F2F2;
+    border-radius: 0.28rem;
+    box-shadow: none;
+    outline: none;
+    border: none;
+    font-size: 0.28rem;
+    color: #333333;
+    text-indent: 0.56rem;
+}
+.search-wrapper>div>span{
+    font-size: 0.24rem;
+    color: #ff6230;
+}
+.search-bar ul li{
+    padding: 0.25rem 0.3rem;
+    font-size: 0.32rem;
+    color: #333333;
+}
+.search-bar ul li.active{
+    color: #ff6230;
+}
+.search-bar ul li:not(:nth-last-child(1)){
+    border-bottom: 1px solid #e5e5e5;
+}
+
+
 .list-box li{
     padding: 0.3rem 0.42rem 0.3rem 0.3rem;
     border-bottom: 1px solid #e5e5e5;

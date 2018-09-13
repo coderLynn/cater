@@ -13,112 +13,152 @@
 <body>
 
 <section class="container">
-    <div class="search-bar">
-        <input type="text" placeholder="输入商家/商圈/美食">
-        <span>智能排序</span>
+    <div class="scroll-container" ref="scroll">
+        <div>
+            <ul class="list-box">
+                <li>
+                    <div class="img-box">
+                        <img src="./images/hotel_item.png" alt="">
+                    </div>
+                    <div class="text-box">
+                        <h2>鲁西肥牛（九方购物中心店）</h2>
+                        <div>
+                    <span>
+                        <span class="star-box">
+                            <span class="icon-star icon-star-active"></span>
+                            <span class="icon-star icon-star-active"></span>
+                            <span class="icon-star"></span>
+                            <span class="icon-star"></span>
+                            <span class="icon-star"></span>
+                        </span>
+                        <span>¥79/人</span>
+                    </span>
+                            <span>1.5km</span>
+                        </div>
+                        <p>
+                            <span>火锅</span>
+                            <span>九方购物中心</span>
+                        </p>
+                    </div>
+                </li>
+                <li>
+                    <div class="img-box">
+                        <img src="./images/hotel_item.png" alt="">
+                    </div>
+                    <div class="text-box">
+                        <h2>鲁西肥牛（九方购物中心店）</h2>
+                        <div>
+                    <span>
+                        <span class="star-box">
+                            <span class="icon-star icon-star-active"></span>
+                            <span class="icon-star icon-star-active"></span>
+                            <span class="icon-star"></span>
+                            <span class="icon-star"></span>
+                            <span class="icon-star"></span>
+                        </span>
+                        <span>¥79/人</span>
+                    </span>
+                            <span>1.5km</span>
+                        </div>
+                        <p>
+                            <span>火锅</span>
+                            <span>九方购物中心</span>
+                        </p>
+                    </div>
+                </li>
+                <li>
+                    <div class="img-box">
+                        <img src="./images/hotel_item.png" alt="">
+                    </div>
+                    <div class="text-box">
+                        <h2>鲁西肥牛（九方购物中心店）</h2>
+                        <div>
+                    <span>
+                        <span class="star-box">
+                            <span class="icon-star icon-star-active"></span>
+                            <span class="icon-star icon-star-active"></span>
+                            <span class="icon-star"></span>
+                            <span class="icon-star"></span>
+                            <span class="icon-star"></span>
+                        </span>
+                        <span>¥79/人</span>
+                    </span>
+                            <span>1.5km</span>
+                        </div>
+                        <p>
+                            <span>火锅</span>
+                            <span>九方购物中心</span>
+                        </p>
+                    </div>
+                </li>
+                <li>
+                    <div class="img-box">
+                        <img src="./images/hotel_item.png" alt="">
+                    </div>
+                    <div class="text-box">
+                        <h2>鲁西肥牛（九方购物中心店）</h2>
+                        <div>
+                    <span>
+                        <span class="star-box">
+                            <span class="icon-star icon-star-active"></span>
+                            <span class="icon-star icon-star-active"></span>
+                            <span class="icon-star"></span>
+                            <span class="icon-star"></span>
+                            <span class="icon-star"></span>
+                        </span>
+                        <span>¥79/人</span>
+                    </span>
+                            <span>1.5km</span>
+                        </div>
+                        <p>
+                            <span>火锅</span>
+                            <span>九方购物中心</span>
+                        </p>
+                    </div>
+                </li>
+                <li>
+                    <div class="img-box">
+                        <img src="./images/hotel_item.png" alt="">
+                    </div>
+                    <div class="text-box">
+                        <h2>鲁西肥牛（九方购物中心店）</h2>
+                        <div>
+                    <span>
+                        <span class="star-box">
+                            <span class="icon-star icon-star-active"></span>
+                            <span class="icon-star icon-star-active"></span>
+                            <span class="icon-star"></span>
+                            <span class="icon-star"></span>
+                            <span class="icon-star"></span>
+                        </span>
+                        <span>¥79/人</span>
+                    </span>
+                            <span>1.5km</span>
+                        </div>
+                        <p>
+                            <span>火锅</span>
+                            <span>九方购物中心</span>
+                        </p>
+                    </div>
+                </li>
+            </ul>
+        </div>
     </div>
-    <ul class="list-box">
-        <li>
-            <div class="img-box">
-                <img src="./images/hotel_item.png" alt="">
+    <div class="search-bar" :class="{ active: isShowSearchPanel }">
+        <div class="search-wrapper">
+            <div>
+                <span class="icon-find"></span>
+                <input type="text" placeholder="输入商家/商圈/美食">
+                <span @click="_isShowSortPanel">智能排序</span>
             </div>
-            <div class="text-box">
-                <h2>鲁西肥牛（九方购物中心店）</h2>
-                <div>
-                    <span>
-                        <span class="star-box">
-                            <span class="icon-star icon-star-active"></span>
-                            <span class="icon-star icon-star-active"></span>
-                            <span class="icon-star"></span>
-                            <span class="icon-star"></span>
-                            <span class="icon-star"></span>
-                        </span>
-                        <span>¥79/人</span>
-                    </span>
-                    <span>1.5km</span>
-                </div>
-                <p>
-                    <span>火锅</span>
-                    <span>九方购物中心</span>
-                </p>
-            </div>
-        </li>
-        <li>
-            <div class="img-box">
-                <img src="./images/hotel_item.png" alt="">
-            </div>
-            <div class="text-box">
-                <h2>鲁西肥牛（九方购物中心店）</h2>
-                <div>
-                    <span>
-                        <span class="star-box">
-                            <span class="icon-star icon-star-active"></span>
-                            <span class="icon-star icon-star-active"></span>
-                            <span class="icon-star"></span>
-                            <span class="icon-star"></span>
-                            <span class="icon-star"></span>
-                        </span>
-                        <span>¥79/人</span>
-                    </span>
-                    <span>1.5km</span>
-                </div>
-                <p>
-                    <span>火锅</span>
-                    <span>九方购物中心</span>
-                </p>
-            </div>
-        </li>
-        <li>
-            <div class="img-box">
-                <img src="./images/hotel_item.png" alt="">
-            </div>
-            <div class="text-box">
-                <h2>鲁西肥牛（九方购物中心店）</h2>
-                <div>
-                    <span>
-                        <span class="star-box">
-                            <span class="icon-star icon-star-active"></span>
-                            <span class="icon-star icon-star-active"></span>
-                            <span class="icon-star"></span>
-                            <span class="icon-star"></span>
-                            <span class="icon-star"></span>
-                        </span>
-                        <span>¥79/人</span>
-                    </span>
-                    <span>1.5km</span>
-                </div>
-                <p>
-                    <span>火锅</span>
-                    <span>九方购物中心</span>
-                </p>
-            </div>
-        </li>
-        <li>
-            <div class="img-box">
-                <img src="./images/hotel_item.png" alt="">
-            </div>
-            <div class="text-box">
-                <h2>鲁西肥牛（九方购物中心店）</h2>
-                <div>
-                    <span>
-                        <span class="star-box">
-                            <span class="icon-star icon-star-active"></span>
-                            <span class="icon-star icon-star-active"></span>
-                            <span class="icon-star"></span>
-                            <span class="icon-star"></span>
-                            <span class="icon-star"></span>
-                        </span>
-                        <span>¥79/人</span>
-                    </span>
-                    <span>1.5km</span>
-                </div>
-                <p>
-                    <span>火锅</span>
-                    <span>九方购物中心</span>
-                </p>
-            </div>
-        </li>
-    </ul>
+            <ul v-show="isShowSearchPanel">
+                <li :class="{'active':sortIndex==0}" @click="">距离优先</li>
+                <li :class="{'active':sortIndex==1}" @click="">低价优先</li>
+                <li :class="{'active':sortIndex==2}" @click="">高价优先</li>
+                <li :class="{'active':sortIndex==3}" @click="">好评优先</li>
+            </ul>
+        </div>
+    </div>
     <nav class="cater-bar">
         <a href="./index.html">
             <div class="item home">
@@ -144,8 +184,119 @@
 
 <script src="./js/jquery-1.8.3.min.js"></script>
 <script src="./js/vue.js"></script>
-<script src="https://unpkg.com/better-scroll/dist/bscroll.min.js"></script>
+<script src="./js/bscroll.js"></script>
 <script src="./js/flexble.js"></script>
+<script>
+    var index = new Vue({
+        el:'.container',
+        data:{
+            scrollY:0,
+            list:[],
+            activeIndex:-1,
+            searchWord:'',
+            sortIndex:0,
+            topTip:'下拉刷新',
+            bottomTip:'加载更多',
+            pageIndex:1,
+            refreshSuccess:false,
+        },
+        props:{
+            probeType:{
+                type:Number,
+                default:2
+            },
+            click:{
+                type:Boolean,
+                default:true
+            },
+            data:{
+                type:Array,
+                default:null
+            },
+            listenScroll:{
+                type:Boolean,
+                default:true
+            },
+            pullup:{
+                type:Boolean,
+                default:false,
+            },
+            beforeScroll:{
+                type:Boolean,
+                default:false
+            },
+            refreshDelay:{
+                type:Number,
+                default:20
+            },
+            isShowSearchBar:{
+                type:Boolean,
+                default:false
+            },
+            isShowSearchPanel:{
+                type:Boolean,
+                default:false
+            },
+        },
+        created(){},
+        mounted(){
+            setTimeout(()=>{
+                this.init_scroll();
+            },200)
+        },
+        methods:{
+            init_scroll:function () {
+                var _this = this;
+                //初始化滚动插件
+                if(!this.$refs.scroll){
+                    return
+                }
+                this.scroll = new BScroll(this.$refs.scroll,{
+                    probeType:this.probeType,
+                    click:this.click
+                });
+                //外层监听滚动位置
+                this.scroll.on('scroll',(pos)=>{
+                    this.scrollY = pos.y;
+                    console.log(_this.scroll.maxScrollY);
+                });
+                // 滑动结束 判断下拉刷新上拉加载
+                this.scroll.on('touchEnd', function (position) {
+                    if (position.y > 30) {
+                        //开始执行下拉刷新
+
+                    }else if(position.y < (_this.scroll.maxScrollY - 30)) {
+                        //开始执行上拉加载
+                        if(_this.hasNext){
+                            _this.bottomTip = '加载中...';
+                            _this.pageIndex++;
+                            _this.pullDown(_this.pageIndex);
+                        }else {
+                            return false;
+                        }
+
+
+                    }
+                });
+
+            },
+            //是否显示排序面板
+            _isShowSortPanel:function () {
+                this.isShowSearchPanel = !this.isShowSearchPanel;
+                if(this.isShowSearchPanel){
+                    this.scroll.disable();
+                }else{
+                    this.scroll.enable();
+                }
+            },
+            _hideSortPanel:function () {
+                var _this = this;
+                _this.isShowSearchPanel = false;
+                _this.scroll.enable();
+            },
+        }
+    })
+</script>
 
 </body>
 </html>

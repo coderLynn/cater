@@ -1,3 +1,7 @@
+.scroll-container{
+    width: 100%;
+    height: calc(100% - 1rem);
+}
 .banner-box{
     height: 4.1rem;
     width: 100%;

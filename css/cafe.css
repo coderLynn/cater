@@ -135,7 +135,7 @@
 }
 
 .comment-box,.store-box{
-    display: none;
+    /*display: none;*/
 }
 
 .food-box-wrapper{
