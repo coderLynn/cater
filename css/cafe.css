@@ -119,6 +119,9 @@
 .cafe-box{
     background: #ffffff;
     margin-top: 0.2rem;
+    /*height: 13.34rem;*/
+    position: relative;
+    overflow: hidden;
 }
 .cafe-box>.tool-bar{
     display: flex;
@@ -132,12 +135,16 @@
 }
 .cafe-box>.tool-bar>div.active{
     color: #ff6230;
+    border-bottom: 1px solid #ff6230;
 }
 
 .comment-box,.store-box{
     /*display: none;*/
 }
-
+.store-container{
+    height: calc(100% - 1rem);
+    overflow: hidden;
+}
 .food-box-wrapper{
     height: 8.95rem;
     display: flex;
@@ -482,7 +489,7 @@
     position: absolute;
     top: 0;
     background: rgba(0,0,0,.35);
-    display: none;
+    /*display: none;*/
 }
 .intro-food .intro-food-wrapper{
     width: 100%;

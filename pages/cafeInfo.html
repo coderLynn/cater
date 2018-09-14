@@ -65,7 +65,7 @@
                         <div class="food-wrapper" ref="foodWrapper">
                             <p><span>热销</span>大家喜欢吃的，才叫真好吃</p>
                             <ul>
-                                <li>
+                                <li @click="_showIntroFood">
                                     <div class="item-img">
                                         <img src="../images/hotel_item.png" alt="">
                                     </div>
@@ -128,47 +128,6 @@
                         </div>
                         <div>
                             <span>去结算</span>
-                        </div>
-                    </div>
-                </div>
-                <div v-show="showStore" class="store-box">
-                    <div class="storeInfo">
-                        <h2>商家信息</h2>
-                        <div class="img-slider" ref="imgScroll">
-                            <div ref="sliderGroup">
-                                <div class="img"><img src="../images/hotel_item.png" alt=""></div>
-                                <div class="img"><img src="../images/hotel_item.png" alt=""></div>
-                                <div class="img"><img src="../images/hotel_item.png" alt=""></div>
-                                <div class="img"><img src="../images/hotel_item.png" alt=""></div>
-                            </div>
-                        </div>
-                        <p><span>简介：</span>鲁西肥牛，以“汤鲜、肉嫩、料绝”为三大特色在山东的生
-                            产基地总占地约2000亩，共投资4亿元，存栏肉牛3万头，可实现
-                            年屠宰量10万头，是农业产业化重点项目。</p>
-                    </div>
-                    <div class="cafeService">
-                        <h2>餐厅服务</h2>
-                        <div>
-                            <span>免费停车场</span>
-                            <span>无线WIFI</span>
-                            <span>卡座</span>
-                            <span>沙发位</span>
-                            <span>包间</span>
-                            <span>刷卡</span>
-                        </div>
-                        <h2>商家地址</h2>
-                        <p>成都市武侯区天晖南街九方购物中心6楼</p>
-                    </div>
-                    <div class="storeTel">
-                        <h2>商家电话</h2>
-                        <p>028 85123350</p>
-
-                    </div>
-                    <div class="storeCertify">
-                        <h2>商家资质</h2>
-                        <div>
-                            <div><img src="../images/hotel_item.png" alt=""></div>
-                            <div><img src="../images/hotel_item.png" alt=""></div>
                         </div>
                     </div>
                 </div>
@@ -264,6 +223,49 @@
                         </li>
                     </ul>
                 </div>
+                <div v-show="showStore" ref="showStore" class="store-container">
+                    <div class="store-box">
+                        <div class="storeInfo">
+                            <h2>商家信息</h2>
+                            <div class="img-slider" ref="imgScroll">
+                                <div ref="sliderGroup">
+                                    <div class="img"><img src="../images/hotel_item.png" alt=""></div>
+                                    <div class="img"><img src="../images/hotel_item.png" alt=""></div>
+                                    <div class="img"><img src="../images/hotel_item.png" alt=""></div>
+                                    <div class="img"><img src="../images/hotel_item.png" alt=""></div>
+                                </div>
+                            </div>
+                            <p><span>简介：</span>鲁西肥牛，以“汤鲜、肉嫩、料绝”为三大特色在山东的生
+                                产基地总占地约2000亩，共投资4亿元，存栏肉牛3万头，可实现
+                                年屠宰量10万头，是农业产业化重点项目。</p>
+                        </div>
+                        <div class="cafeService">
+                            <h2>餐厅服务</h2>
+                            <div>
+                                <span>免费停车场</span>
+                                <span>无线WIFI</span>
+                                <span>卡座</span>
+                                <span>沙发位</span>
+                                <span>包间</span>
+                                <span>刷卡</span>
+                            </div>
+                            <h2>商家地址</h2>
+                            <p>成都市武侯区天晖南街九方购物中心6楼</p>
+                        </div>
+                        <div class="storeTel">
+                            <h2>商家电话</h2>
+                            <p>028 85123350</p>
+
+                        </div>
+                        <div class="storeCertify">
+                            <h2>商家资质</h2>
+                            <div>
+                                <div><img src="../images/hotel_item.png" alt=""></div>
+                                <div><img src="../images/hotel_item.png" alt=""></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="write-info">
@@ -322,11 +324,11 @@
                 </div>
             </div>
         </div>
-        <div class="intro-food">
+        <div @click="_hideIntroFood" v-show="showIntroFood" class="intro-food">
             <div class="intro-food-wrapper">
                 <div class="img-box">
                     <img src="../images/hotel_item.png" alt="">
-                    <span class="icon-back"></span>
+                    <span @click="_hideIntroFood" class="icon-back"></span>
                 </div>
                 <div class="food-box">
                     <div class="food-des">
@@ -402,6 +404,9 @@
                 showFood:false,
                 showStore:true,
                 showComment:false,
+                showIntroFood:false,
+                showStoreY:0,
+                scrollY:0,
             },
             props:{
                 probeType:{
@@ -434,25 +439,72 @@
                 }
             },
             created(){
-
+                var clientHeight = $('.container').height();
+                $('.cafe-box').css({'height':clientHeight})
             },
             mounted(){
                 setTimeout(()=>{
                     this.init_scroll();
                     this._setSliderWidth();
                     this.init_imgScroll();
-
                 },20);
             },
             methods:{
                 init_scroll:function () {
+                    var _this =this;
+                    //初始化外层滚动框
                     if(!this.$refs.scroll){
                         return
                     }
                     this.scroll = new BScroll(this.$refs.scroll,{
                         probeType:this.probeType,
                         click:this.click
-                    })
+                    });
+
+                    //外层滚动 监听滚动位置
+                    this.scroll.on('scroll',(pos)=>{
+                        _this.scrollY = pos.y;
+                        console.log('外层开始滚动啦'+pos.y);
+                        console.log(_this.scroll.maxScrollY);
+                        if(pos.y < _this.scroll.maxScrollY){
+                            _this.showStore.enable();
+                            _this.scroll.scrollTo(0, _this.scroll.maxScrollY);
+                            console.log('开启内部滚动')
+                        }else{
+                            _this.showStore.disable();
+                        }
+                    });
+
+                    //初始化 商家详情 滚动框
+                    if(!this.$refs.showStore){
+                        return
+                    }
+                    this.showStore = new BScroll(this.$refs.showStore,{
+                        probeType:this.probeType,
+                        click:this.click,
+                        bounce: {
+                            top: false,
+                            bottom: false,
+                            left: false,
+                            right: false
+                        }
+                    });
+                    //店铺滚动 监听滚动位置
+                    this.showStore.on('scroll',(pos)=>{
+                        _this.showStoreY = pos.y;
+                        console.log("内部最大滚动高度"+_this.showStore.maxScrollY);
+                        console.log("内部滚动"+pos.y);
+                        if(pos.y>=0){
+                            _this.scroll.enable();
+                        }else{
+                            //禁止外层滚动
+                            _this.scroll.disable();
+                            console.log("禁止外层滚动")
+
+                        }
+
+
+                    });
                 },
                 _setSliderWidth(isResize){
                     this.children = this.$refs.sliderGroup.children;
@@ -475,7 +527,7 @@
                     if(!this.$refs.imgScroll){
                         return
                     }
-                    this.scroll = new BScroll(this.$refs.imgScroll,{
+                    this.imgscroll = new BScroll(this.$refs.imgScroll,{
                         scrollX:true,
                         scrollY:false,
                         probeType:this.probeType,
@@ -491,6 +543,7 @@
                 _hideChoseScale:function () {
                     this.showChoseScale = false;
                 },
+                //点菜、评论、店铺 切换显示
                 showPanel:function (index) {
                     if(index==1){
                         this.showFood = true;
@@ -502,8 +555,31 @@
                         this.showStore = true;
                         this.showComment = this.showFood =false;
                     }
+                },
+                //显示 菜品介绍层
+                _showIntroFood:function () {
+                    this.showIntroFood = true;
+                },
+                //隐藏 菜品介绍层
+                _hideIntroFood:function () {
+                    this.showIntroFood = false;
+                },
+                //禁用外部滚动 内部滚动
+                scrollDisable:function () {
+                    var _this = this;
+                    _this.scroll.disable();
+                    // _this.
                 }
 
+            },
+            watch:{
+                //外层滚动高度监测
+                showStoreY(newY){
+                    if(newY>0){
+                        newY = 0;
+                    }
+                    console.log(newY)
+                }
             }
         })
     </script>

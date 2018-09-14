@@ -41,121 +41,50 @@
                         </p>
                     </div>
                 </li>
-                <li>
+                <li v-for="item in list">
                     <div class="img-box">
-                        <img src="./images/hotel_item.png" alt="">
+                        <img :src="item.imgs[0]" alt="">
                     </div>
                     <div class="text-box">
-                        <h2>鲁西肥牛（九方购物中心店）</h2>
+                        <h2>{{item.name}}</h2>
                         <div>
                     <span>
                         <span class="star-box">
-                            <span class="icon-star icon-star-active"></span>
-                            <span class="icon-star icon-star-active"></span>
-                            <span class="icon-star"></span>
-                            <span class="icon-star"></span>
-                            <span class="icon-star"></span>
+                            <span v-for="star in item.score" class="icon-star icon-star-active"></span>
+                            <span v-for="star in item.leftScore" class="icon-star"></span>
                         </span>
-                        <span>¥79/人</span>
+                        <span>¥{{item.avgPrice}}/人</span>
                     </span>
-                            <span>1.5km</span>
+                            <span>{{item.distance}}km</span>
                         </div>
                         <p>
-                            <span>火锅</span>
-                            <span>九方购物中心</span>
-                        </p>
-                    </div>
-                </li>
-                <li>
-                    <div class="img-box">
-                        <img src="./images/hotel_item.png" alt="">
-                    </div>
-                    <div class="text-box">
-                        <h2>鲁西肥牛（九方购物中心店）</h2>
-                        <div>
-                    <span>
-                        <span class="star-box">
-                            <span class="icon-star icon-star-active"></span>
-                            <span class="icon-star icon-star-active"></span>
-                            <span class="icon-star"></span>
-                            <span class="icon-star"></span>
-                            <span class="icon-star"></span>
-                        </span>
-                        <span>¥79/人</span>
-                    </span>
-                            <span>1.5km</span>
-                        </div>
-                        <p>
-                            <span>火锅</span>
-                            <span>九方购物中心</span>
-                        </p>
-                    </div>
-                </li>
-                <li>
-                    <div class="img-box">
-                        <img src="./images/hotel_item.png" alt="">
-                    </div>
-                    <div class="text-box">
-                        <h2>鲁西肥牛（九方购物中心店）</h2>
-                        <div>
-                    <span>
-                        <span class="star-box">
-                            <span class="icon-star icon-star-active"></span>
-                            <span class="icon-star icon-star-active"></span>
-                            <span class="icon-star"></span>
-                            <span class="icon-star"></span>
-                            <span class="icon-star"></span>
-                        </span>
-                        <span>¥79/人</span>
-                    </span>
-                            <span>1.5km</span>
-                        </div>
-                        <p>
-                            <span>火锅</span>
-                            <span>九方购物中心</span>
-                        </p>
-                    </div>
-                </li>
-                <li>
-                    <div class="img-box">
-                        <img src="./images/hotel_item.png" alt="">
-                    </div>
-                    <div class="text-box">
-                        <h2>鲁西肥牛（九方购物中心店）</h2>
-                        <div>
-                    <span>
-                        <span class="star-box">
-                            <span class="icon-star icon-star-active"></span>
-                            <span class="icon-star icon-star-active"></span>
-                            <span class="icon-star"></span>
-                            <span class="icon-star"></span>
-                            <span class="icon-star"></span>
-                        </span>
-                        <span>¥79/人</span>
-                    </span>
-                            <span>1.5km</span>
-                        </div>
-                        <p>
-                            <span>火锅</span>
-                            <span>九方购物中心</span>
+                            <span>{{item.tag}}</span>
+                            <span>{{item.area}}</span>
                         </p>
                     </div>
                 </li>
             </ul>
+            <!--
+                1、底部提示信息
+                2、这里有一种情况,就是没有更多数据时,这里的文本应该显示"暂无更多数据"
+            -->
+            <div class="bottom-tip">
+                <span class="loading-hook">{{bottomTip}}</span>
+            </div>
         </div>
     </div>
-    <div class="search-bar" :class="{ active: isShowSearchPanel }">
-        <div class="search-wrapper">
+    <div @click="_hideSortPanel" class="search-bar" :class="{ active: isShowSearchPanel }">
+        <div @click.stop class="search-wrapper">
             <div>
                 <span class="icon-find"></span>
-                <input type="text" placeholder="输入商家/商圈/美食">
+                <input v-model="searchWord" type="text" placeholder="输入商家/商圈/美食">
                 <span @click="_isShowSortPanel">智能排序</span>
             </div>
             <ul v-show="isShowSearchPanel">
-                <li :class="{'active':sortIndex==0}" @click="">距离优先</li>
-                <li :class="{'active':sortIndex==1}" @click="">低价优先</li>
-                <li :class="{'active':sortIndex==2}" @click="">高价优先</li>
-                <li :class="{'active':sortIndex==3}" @click="">好评优先</li>
+                <li :class="{'active':sortIndex==0}" @click="getListByMiles">距离优先</li>
+                <li :class="{'active':sortIndex==1}" @click="getListByPriceLow">低价优先</li>
+                <li :class="{'active':sortIndex==2}" @click="getListByPriceHigh">高价优先</li>
+                <li :class="{'active':sortIndex==3}" @click="getListByGoodComment">好评优先</li>
             </ul>
         </div>
     </div>
@@ -186,19 +115,32 @@
 <script src="./js/vue.js"></script>
 <script src="./js/bscroll.js"></script>
 <script src="./js/flexble.js"></script>
+<script src="./js/HttpHelper.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.1.0.js"> </script>
+<script src="js/WeChatJSSDK.js"></script>
 <script>
     var index = new Vue({
         el:'.container',
         data:{
             scrollY:0,
             list:[],
+            getCafesListUrl:'/api/Restaurant/GetRestaurantsByMiles',
             activeIndex:-1,
             searchWord:'',
             sortIndex:0,
             topTip:'下拉刷新',
             bottomTip:'加载更多',
-            pageIndex:1,
             refreshSuccess:false,
+            location:{
+                detail:'四川省成都市天府三街',
+                lng:0,
+                lat:0,
+                province:'四川省',
+                city:'成都市',
+                area:'武侯区',
+            },
+            hasNext:true,
+            pageIndex:1,
         },
         props:{
             probeType:{
@@ -238,7 +180,9 @@
                 default:false
             },
         },
-        created(){},
+        created(){
+            this.getCafesList();
+        },
         mounted(){
             setTimeout(()=>{
                 this.init_scroll();
@@ -294,6 +238,110 @@
                 _this.isShowSearchPanel = false;
                 _this.scroll.enable();
             },
+            //获取地理位置
+            //获取当前地理位置,并获取附近饭店列表
+            getLocation:function(){
+                var _this = this;
+                Wechat(function (wx) {
+                    wx.getLocation({
+                        type: 'gcj02', // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
+                        success: function (res) {
+                            var latitude = res.latitude; // 纬度，浮点数，范围为90 ~ -90
+                            var longitude = res.longitude; // 经度，浮点数，范围为180 ~ -180。
+                            var speed = res.speed; // 速度，以米/每秒计
+                            var accuracy = res.accuracy; // 位置精度
+                            // alert("纬度：" + latitude + "  经度：" + longitude);
+                            _this.location.lng = longitude;
+                            _this.location.lat = latitude;
+                            var geocoder = new qq.maps.Geocoder({
+                                complete: function (result) {   //解析成功的回调函数
+                                    var address = result.detail.address;  //获取详细地址信息
+                                    _this.location.detail = address;
+                                    _this.location.province = result.detail.addressComponents.province;
+                                    _this.location.city = result.detail.addressComponents.city;
+                                    _this.location.area = result.detail.addressComponents.district;
+                                }
+                            });
+                            geocoder.getAddress(new qq.maps.LatLng(res.latitude, res.longitude));
+                            // _this.getHotelsList(_this.pageIndex);
+                        }
+                    });
+                })
+            },
+            //获取酒店列表
+            getCafesList:function (pageIndex) {
+                var _this = this;
+                get(this.getCafesListUrl,{lng:_this.location.lng,lat:_this.location.lat,page:pageIndex,name:_this.searchWord,city:_this.location.city},function(res){
+                    res.list.forEach((item)=>{
+                        item.distance =  parseInt(item.distance/1000);
+                        item.leftScore = 5 - item.score;
+                    });
+                    _this.list = _this.list.concat(res.list);
+                    console.log(_this.list);
+                    // 加载更多后,重新计算滚动区域高度
+                    setTimeout(()=>{
+                        _this.scroll.refresh();
+                    },250);
+                    //改变提示文本值
+                    if(_this.list.length<res.total){
+                        _this.hasNext = true;
+                        _this.bottomTip = '加载更多';
+                    }else{
+                        _this.hasNext = false;
+                        _this.bottomTip = '暂无更多数据';
+                    }
+                });
+            },
+            //距离远近获取列表
+            getListByMiles:function(){
+                var _this = this;
+                _this.pageIndex = 1;
+                _this.list = [];
+                _this.getHotelsListUrl = '/api/Restaurant/GetRestaurantsByMiles';
+                _this.sortIndex = 0;
+                _this._hideSortPanel();
+                _this.getCafesList(_this.pageIndex);
+            },
+            //价格低获取列表
+            getListByPriceLow:function(){
+                var _this=this;
+                _this.pageIndex = 1;
+                _this.list = [];
+                _this.getCafesListUrl = '/api/Restaurant/GetRestaurantsByPriceAsc';
+                _this.sortIndex = 1;
+                _this._hideSortPanel();
+                _this.getCafesList(_this.pageIndex);
+            },
+            //价格高获取列表
+            getListByPriceHigh:function(){
+                var _this=this;
+                _this.pageIndex = 1;
+                _this.list = [];
+                _this.getCafesListUrl = '/api/Restaurant/GetRestaurantsByPriceDesc';
+                _this.sortIndex = 2;
+                _this._hideSortPanel();
+                _this.getCafesList(_this.pageIndex);
+            },
+            //好评获取列表
+            getListByGoodComment:function(){
+                var _this=this;
+                _this.pageIndex = 1;
+                _this.list = [];
+                _this.getCafesListUrl = '/api/Restaurant/GetRestaurantsByGoodComments';
+                _this._hideSortPanel();
+                _this.sortIndex = 3;
+                _this.getCafesList(_this.pageIndex);
+            },
+            //上拉加载数据
+            pullDown:function (pageIndex) {
+                var _this = this;
+                if(!_this.hasNext){
+                    return false;
+                }else{
+                    _this.getCafesList(_this.pageIndex);
+                }
+            },
+
         }
     })
 </script>

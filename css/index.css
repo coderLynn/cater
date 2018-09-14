@@ -1,7 +1,7 @@
 .scroll-container{
     width: 100%;
-    padding-top: 1rem;
-    height: calc(100% - 3.12rem);
+    margin-top: 1rem;
+    height: calc(100% - 2.12rem);
 }
 .search-bar{
     position: absolute;
@@ -95,9 +95,14 @@
     color: #999999;
     margin: 0.15rem 0;
 }
+.list-box .text-box>div>span:nth-child(1){
+    display: flex;
+}
 .star-box{
     padding-left: 0.04rem;
     margin-right: 0.1rem;
+    display: flex;
+    align-items: center;
 }
 .icon-star{
     display: inline-block;
@@ -106,7 +111,7 @@
     background-image: url("../images/icon_star.png");
     background-repeat: no-repeat;
     background-size: 0.2rem;
-    margin-left: -0.05rem;
+    margin-right: 0.04rem;
 }
 .icon-star.icon-star-active{
     background-image: url("../images/icon_star_active.png");

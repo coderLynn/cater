@@ -62,3 +62,71 @@ nav .item p{
     font-size: 0.24rem;
     text-align: center;
 }
+
+
+/* 下拉、上拉提示信息 */
+.top-tip{
+    position: absolute;
+    top: -40px;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    height:40px;
+    line-height:40px;
+    text-align:center;
+    color: #555;
+    font-size: 0.26rem;
+}
+
+.bottom-tip{
+    width: 100%;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    color: #777;
+    background: #f2f2f2;
+    font-size: 0.26rem;
+}
+
+/* 全局提示信息 */
+.alert{
+    position: fixed;
+    top: 0px;
+    left: 0;
+    z-index: 2;
+    width: 100%;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    color: #fff;
+    background: rgba(7, 17, 27, 0.45);
+    font-size: 0.24rem;
+}
+
+.refresh-alert-enter-active, .refresh-alert-leave-active {
+    transition: opacity .35s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+    top: -50px;
+}
+[v-cloak] {
+    display: none;
+}
+.attention{
+    width: 6.9rem;
+    height: 0.5rem;
+    background: rgba(0, 0, 0, 0.35);
+    position: absolute;
+    top: 0;
+    bottom: 1rem;
+    left: 0;
+    right: 0;
+    margin: auto;
+    padding: 1.2rem 0;
+    border-radius: 0.1rem;
+}
+.attention p{
+    font-size: 0.38rem;
+    text-align: center;
+    color: #ffffff;
+}
