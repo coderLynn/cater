@@ -15,33 +15,32 @@
         <div>
             <div class="cafe-intro-box">
                 <div class="img-box">
-                    <img src="../images/hotel_item.png" alt="">
+                    <img v-if="restaurant.imgs" :src="restaurant.imgs[0]" alt="">
                 </div>
                 <div class="second-box">
-                    <h2>鲁西肥牛（九方购物中心店）</h2>
+                    <h2>{{restaurant.name}}</h2>
                     <p>
-                    <span class="star-box">
-                        <span class="icon-star icon-star-active"></span>
-                        <span class="icon-star icon-star-active"></span>
-                        <span class="icon-star"></span>
-                        <span class="icon-star"></span>
-                        <span class="icon-star"></span>
-                    </span>
-                        <span>¥79/人</span>
-                        <span>月售1518</span>
+                        <span>
+                            <span class="star-box">
+                                <span v-for="star in restaurant.score" class="icon-star icon-star-active"></span>
+                                <span v-for="star in restaurant.leftScore" class="icon-star"></span>
+                            </span>
+                            <span>¥{{restaurant.avgPrice}}/人</span>
+                            <span>月售{{restaurant.scoreCount}}</span>
+                        </span>
                     </p>
                 </div>
                 <div class="address-box">
                     <div>
-                        <h3>四川省成都市高新区府城大道中段88号九方购物中心6楼</h3>
+                        <h3>{{restaurant.address}}</h3>
                         <p>
-                            <span>距您800m</span><span>中航城市广场</span>
+                            <span>距您{{restaurant.distance}}m</span><span></span>
                         </p>
                     </div>
                     <span class="icon-tell"></span>
                 </div>
                 <div class="status-box">
-                    <span class="open-status">营业中（时间 08:00 至 22:00）</span>
+                    <span class="open-status">{{restaurant.businessTime}}</span>
                 </div>
             </div>
             <div class="cafe-box">
@@ -235,9 +234,7 @@
                                     <div class="img"><img src="../images/hotel_item.png" alt=""></div>
                                 </div>
                             </div>
-                            <p><span>简介：</span>鲁西肥牛，以“汤鲜、肉嫩、料绝”为三大特色在山东的生
-                                产基地总占地约2000亩，共投资4亿元，存栏肉牛3万头，可实现
-                                年屠宰量10万头，是农业产业化重点项目。</p>
+                            <p><span>简介：</span>{{restaurant.introduction}}</p>
                         </div>
                         <div class="cafeService">
                             <h2>餐厅服务</h2>
@@ -250,24 +247,24 @@
                                 <span>刷卡</span>
                             </div>
                             <h2>商家地址</h2>
-                            <p>成都市武侯区天晖南街九方购物中心6楼</p>
+                            <p>{{restaurant.address}}</p>
                         </div>
                         <div class="storeTel">
                             <h2>商家电话</h2>
-                            <p>028 85123350</p>
+                            <p>{{restaurant.tel}}</p>
 
                         </div>
-                        <div class="storeCertify">
+                        <div  class="storeCertify">
                             <h2>商家资质</h2>
                             <div>
-                                <div><img src="../images/hotel_item.png" alt=""></div>
-                                <div><img src="../images/hotel_item.png" alt=""></div>
+                                <div v-for="(item,index) in restaurant.qualificationsImgs">
+                                    <img v-if="index<2" :src="item" alt="">
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
         <div class="write-info">
             <ul>
                 <li><span>用餐人数</span><input type="text" value="2"></li>
@@ -390,16 +387,19 @@
                 <div class="btn">选好了</div>
             </div>
         </div>
+        </div>
     </section>
 
-<script src="../js/jquery-1.8.3.min.js"></script>
-<script src="../js/vue.js"></script>
-<script src="../js/bscroll.js"></script>
-<script src="../js/flexble.js"></script>
+    <script src="../js/jquery-1.8.3.min.js"></script>
+    <script src="../js/vue.js"></script>
+    <script src="../js/bscroll.js"></script>
+    <script src="../js/HttpHelper.js"></script>
+    <script src="../js/flexble.js"></script>
     <script>
         var index = new Vue({
             el:'.container',
             data:{
+                restaurant:{},
                 showChoseScale:false,
                 showFood:false,
                 showStore:true,
@@ -439,15 +439,16 @@
                 }
             },
             created(){
-                var clientHeight = $('.container').height();
-                $('.cafe-box').css({'height':clientHeight})
+                // var clientHeight = $('.container').height();
+                // $('.cafe-box').css({'height':clientHeight});
+                this.getRestaurant(2);
             },
             mounted(){
                 setTimeout(()=>{
                     this.init_scroll();
                     this._setSliderWidth();
                     this.init_imgScroll();
-                },20);
+                },100);
             },
             methods:{
                 init_scroll:function () {
@@ -464,47 +465,45 @@
                     //外层滚动 监听滚动位置
                     this.scroll.on('scroll',(pos)=>{
                         _this.scrollY = pos.y;
-                        console.log('外层开始滚动啦'+pos.y);
-                        console.log(_this.scroll.maxScrollY);
+                        // console.log('外层开始滚动啦'+pos.y);
+                        // console.log(_this.scroll.maxScrollY);
                         if(pos.y < _this.scroll.maxScrollY){
-                            _this.showStore.enable();
-                            _this.scroll.scrollTo(0, _this.scroll.maxScrollY);
-                            console.log('开启内部滚动')
+                            // _this.showStore.enable();
+                            // _this.scroll.scrollTo(0, _this.scroll.maxScrollY);
+                            // console.log('开启内部滚动')
                         }else{
-                            _this.showStore.disable();
+                            // _this.showStore.disable();
                         }
                     });
 
                     //初始化 商家详情 滚动框
-                    if(!this.$refs.showStore){
-                        return
-                    }
-                    this.showStore = new BScroll(this.$refs.showStore,{
-                        probeType:this.probeType,
-                        click:this.click,
-                        bounce: {
-                            top: false,
-                            bottom: false,
-                            left: false,
-                            right: false
-                        }
-                    });
+                    // if(!this.$refs.showStore){
+                    //     return
+                    // }
+                    // this.showStore = new BScroll(this.$refs.showStore,{
+                    //     probeType:this.probeType,
+                    //     click:this.click,
+                    //     bounce: {
+                    //         top: false,
+                    //         bottom: false,
+                    //         left: false,
+                    //         right: false
+                    //     }
+                    // });
                     //店铺滚动 监听滚动位置
-                    this.showStore.on('scroll',(pos)=>{
-                        _this.showStoreY = pos.y;
-                        console.log("内部最大滚动高度"+_this.showStore.maxScrollY);
-                        console.log("内部滚动"+pos.y);
-                        if(pos.y>=0){
-                            _this.scroll.enable();
-                        }else{
-                            //禁止外层滚动
-                            _this.scroll.disable();
-                            console.log("禁止外层滚动")
-
-                        }
-
-
-                    });
+                    // this.showStore.on('scroll',(pos)=>{
+                    //     _this.showStoreY = pos.y;
+                    //     console.log("内部最大滚动高度"+_this.showStore.maxScrollY);
+                    //     console.log("内部滚动"+pos.y);
+                    //     if(pos.y>=0){
+                    //         _this.scroll.enable();
+                    //     }else{
+                    //         //禁止外层滚动
+                    //         _this.scroll.disable();
+                    //         console.log("禁止外层滚动")
+                    //
+                    //     }
+                    // });
                 },
                 _setSliderWidth(isResize){
                     this.children = this.$refs.sliderGroup.children;
@@ -564,22 +563,20 @@
                 _hideIntroFood:function () {
                     this.showIntroFood = false;
                 },
-                //禁用外部滚动 内部滚动
-                scrollDisable:function () {
-                    var _this = this;
-                    _this.scroll.disable();
-                    // _this.
-                }
 
+
+                //获取餐厅信息
+                getRestaurant:function (id) {
+                    var _this = this;
+                    get('/api/Restaurant/GetRestaurant',{'restaurantId':id},function(res){
+                        res.leftScore = 5 - res.score;
+                        _this.restaurant = res;
+                    })
+                }
             },
             watch:{
                 //外层滚动高度监测
-                showStoreY(newY){
-                    if(newY>0){
-                        newY = 0;
-                    }
-                    console.log(newY)
-                }
+
             }
         })
     </script>

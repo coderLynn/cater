@@ -24,6 +24,21 @@
     font-size: 0.27rem;
     color: #999999;
     text-align: center;
+    display: flex;
+    justify-content: space-around;
+}
+.second-box>p>span{
+    font-size: 0.27rem;
+    color: #999999;
+    text-align: center;
+    display: flex;
+    align-items: center;
+}
+.second-box>p>div{
+    /*display: flex;*/
+}
+.star-box{
+    display: flex;
 }
 .icon-star{
     display: inline-block;
@@ -32,7 +47,7 @@
     background-image: url("../images/icon_star.png");
     background-repeat: no-repeat;
     background-size: 0.2rem;
-    margin-left: -0.05rem;
+    margin-right: 0.04rem;
 }
 .icon-star.icon-star-active{
     background-image: url("../images/icon_star_active.png");
@@ -142,8 +157,8 @@
     /*display: none;*/
 }
 .store-container{
-    height: calc(100% - 1rem);
-    overflow: hidden;
+    /*height: calc(100% - 1rem);*/
+    /*overflow: hidden;*/
 }
 .food-box-wrapper{
     height: 8.95rem;
@@ -262,6 +277,7 @@
 .storeInfo p{
     font-size: 0.24rem;
     color: #666666;
+    margin-top: 0.2rem;
 }
 .storeInfo p>span{
     color: #333333;
