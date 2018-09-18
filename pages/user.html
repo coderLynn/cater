@@ -8,74 +8,187 @@
     <meta name="apple-touch-fullscreen" content="yes">
     <link rel="stylesheet" href="../css/common.css">
     <link rel="stylesheet" href="../css/user.css">
-    <title>我要吃</title>
+    <title>个人中心</title>
 </head>
 <body>
-    <section class="container">
-        <div class="top-bg">
-            <div class="top-wrapper">
-                    <div class="img-box">
-                        <img src="../images/user-img.png" alt="">
-                    </div>
-                    <p><span class="name">小米粒677</span></p>
-                    <p><span class="deadline">有效期  2017.08.25 - 2018.08.25</span></p>
+<section v-cloak class="container">
+    <div class="top-bg">
+        <div class="top-wrapper">
+            <div class="img-box">
+                <img :src="userInfo.head" alt="">
             </div>
+            <p><span class="name">{{userInfo.nick}}</span></p>
+            <p>
+                <span v-if="userInfo.vip" class="deadline">有效期  2017.08.25 - 2018.08.25</span>
+                <span class="deadline" v-else>当前是普通会员</span>
+            </p>
         </div>
-        <div class="option-bar">
-            <div class="option-item">
-                <span class="score">2538</span>
-                <p>积分</p>
-            </div>
-            <div class="option-item">
-                <span class="icon-comment"></span>
-                <p>点评</p>
-            </div>
+    </div>
+    <div class="option-bar">
+        <div class="option-item">
+            <span class="score">{{userInfo.score}}</span>
+            <p>积分</p>
         </div>
-        <div class="option-box">
-            <ul>
-                <li>
-                    <span>开通 / 续费会员</span>
-                    <span class="icon-arrow-right"></span>
-                </li>
+        <div @click="toCommentPage" class="option-item">
+            <span class="icon-comment"></span>
+            <p>点评</p>
+        </div>
+    </div>
+    <div class="option-box">
+        <ul>
+            <li v-show="false">
+                <span>开通 / 续费会员</span>
+                <span class="icon-arrow-right"></span>
+            </li>
+            <a href="mineComment.html">
                 <li>
                     <span>我的评价</span>
                     <span class="icon-arrow-right"></span>
                 </li>
-                <li>
-                    <span>我的年度消费</span>
-                    <span class="icon-arrow-right"></span>
-                </li>
-                <li>
-                    <span>个人资料</span>
-                    <span class="icon-arrow-right"></span>
-                </li>
-            </ul>
+            </a>
+            <li @click="_showPersonInfo">
+                <span>个人资料</span>
+                <span class="icon-arrow-right"></span>
+            </li>
+        </ul>
+    </div>
+    <nav>
+        <a href="../index.html">
+            <div class="item home">
+                <span class="icon icon-home"></span>
+                <p>首页</p>
+            </div>
+        </a>
+        <a href="mineOrder.html">
+            <div class="item order">
+                <span class="icon icon-order"></span>
+                <p>订单</p>
+            </div>
+        </a>
+        <a href="../pages/user.html">
+            <div class="item user">
+                <span class="icon icon-user active"></span>
+                <p>我的</p>
+            </div>
+        </a>
+    </nav>
+    <div v-show="showPersonInfo" class="personInfo">
+        <div class="top-bg">
+            <div class="top-wrapper">
+                <div class="img-box">
+                    <img :src="userInfo.head" alt="">
+                </div>
+                <p><span class="name">{{userInfo.nick}}</span></p>
+            </div>
         </div>
-        <nav>
-            <a href="../index.html">
-                <div class="item home">
-                    <span class="icon icon-home"></span>
-                    <p>首页</p>
-                </div>
-            </a>
-            <a href="#">
-                <div class="item order">
-                    <span class="icon icon-order"></span>
-                    <p>订单</p>
-                </div>
-            </a>
-            <a href="../pages/user.html">
-                <div class="item user">
-                    <span class="icon icon-user"></span>
-                    <p>我的</p>
-                </div>
-            </a>
-        </nav>
-    </section>
+        <ul>
+            <li v-show="false"><p>电话</p>
+                <span>182****2345</span>
+            </li>
+            <li v-show="false"><p>身份证号</p>
+                <span>555************1112</span>
+            </li>
+            <li v-show="false"><p>真实姓名</p>
+                <span>仙女本仙</span>
+            </li>
+            <li><p>会员信息</p>
+                <span v-if="userInfo.vip" class="deadline">有效期  2017.08.25 - 2018.08.25</span>
+                <span class="deadline" v-else>当前是普通会员</span>
+            </li>
+        </ul>
+    </div>
+</section>
 
-    <script src="../js/jquery-1.8.3.min.js"></script>
-    <script src="../js/vue.js"></script>
-    <script src="https://unpkg.com/better-scroll/dist/bscroll.min.js"></script>
-    <script src="../js/flexble.js"></script>
+<script src="../js/jquery-1.8.3.min.js"></script>
+<script src="../js/vue.js"></script>
+<script src="../js/bscroll.js"></script>
+<script src="../js/flexble.js"></script>
+<script src="../js/HttpHelper.js"></script>
+
+<script>
+    var user = new Vue({
+        el:'.container',
+        data:{
+            getUserInfoUrl:'/api/User/GetUserInfo',
+            userInfo:{},
+            location:{
+                detail:'',
+                lng:0,
+                lat:0,
+                province:'四川省',
+                city:'成都市',
+                area:''
+            },
+            showPersonInfo:false,
+        },
+        props:{
+            probeType:{
+                type:Number,
+                default:1
+            },
+            click:{
+                type:Boolean,
+                default:true
+            },
+            data:{
+                type:Array,
+                default:null
+            },
+            listenScroll:{
+                type:Boolean,
+                default:false
+            },
+            pullup:{
+                type:Boolean,
+                default:false,
+            },
+            beforeScroll:{
+                type:Boolean,
+                default:false
+            },
+            refreshDelay:{
+                type:Number,
+                default:20
+            },
+            autoPlay:{
+                type:Boolean,
+                default:true
+            },
+            loop:{
+                type:Boolean,
+                default:true
+            },
+
+        },
+        created(){
+            this.getUserInfo();
+        },
+        mounted(){
+
+        },
+        methods:{
+            getUserInfo:function () {
+                var _this=this;
+                console.log(_this.userInfo)
+                get(_this.getUserInfoUrl,{},function(res){
+                    _this.userInfo = res;
+                    console.log(_this.userInfo)
+                })
+            },
+            _showPersonInfo:function () {
+                this.showPersonInfo = true;
+            },
+            _hidePersonInfo:function () {
+                this.showPersonInfo = false;
+            },
+            toCommentPage:function(){
+                window.location.href="mineOrder.html?flag=0"
+            }
+        },
+        destroyed(){
+
+        }
+    })
+</script>
 </body>
 </html>

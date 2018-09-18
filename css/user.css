@@ -219,3 +219,27 @@
     width: 100%;
     height: 2.8rem;
 }
+
+
+.personInfo{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    background: #F2F2F2;
+}
+.personInfo ul li{
+    display: flex;
+    justify-content: space-between;
+    padding: 0.3rem 0.5rem 0.3rem 0.3rem;
+    background: #ffffff;
+    border-top: 1px solid #e5e5e5;
+}
+.personInfo ul li p{
+    font-size: 0.28rem;
+    color: #333333;
+}
+.personInfo ul li span{
+    font-size: 0.28rem;
+    color: #999999;
+}

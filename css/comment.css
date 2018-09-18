@@ -61,10 +61,15 @@
 }
 .score-box{
     margin-bottom: 0.3rem;
+    display: flex;
+    align-items: center;
 }
 .score-box>span{
     font-size: 0.24rem;
     color: #333333;
+}
+.score-box>span:nth-child(1){
+    margin-right: 0.15rem;
 }
 .score-box>span.icon-star{
     display: inline-block;
@@ -73,7 +78,7 @@
     background-image: url("../images/icon_star.png");
     background-size: 100%;
     background-repeat: no-repeat;
-    margin-right: -0.05rem;
+    margin-left: 0.04rem;
 }
 .score-box>span.icon-star-active{
     background-image: url("../images/icon_star_active.png");

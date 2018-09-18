@@ -132,7 +132,12 @@
             }
         },
         created(){
-            this.getMyOrders()
+            this.flag = GetQueryString('flag');
+            if(this.flag){
+                this.view_waitComment();
+            }else{
+                this.getMyOrders();
+            }
         },
         mounted(){
             setTimeout(this.init_scroll,20);
