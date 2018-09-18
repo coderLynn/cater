@@ -15,96 +15,70 @@
     <div class="scroll" ref="scroll">
         <div>
             <div class="list-bar-box">
-                <div class="bar-item">
-            <span class="icon icon-pay">
-                <span class="num">1</span>
-            </span>
-                    <span>待付款</span>
-                </div>
-                <div class="bar-item">
-            <span class="icon icon-setout">
-                <span class="num">1</span>
-            </span>
-                    <span>待使用</span>
-                </div>
-                <div class="bar-item">
-                    <span class="icon icon-comment"></span>
-                    <span>待评价</span>
-                </div>
-                <div class="bar-item">
-                    <span class="icon icon-payback"></span>
-                    <span>待退款</span>
-                </div>
-                <div class="bar-item">
+                <div @click="view_allOrder" class="bar-item">
                     <span class="icon icon-order"></span>
                     <span>全部订单</span>
                 </div>
+                <div @click="view_waitPay" class="bar-item">
+                    <span class="icon icon-pay">
+                        <span v-show="false" class="num">1</span>
+                    </span>
+                    <span>待付款</span>
+                </div>
+                <div @click="view_waitComment" class="bar-item">
+                    <span class="icon icon-comment"></span>
+                    <span>待评价</span>
+                </div>
+                <div @click="view_backMoney" class="bar-item">
+                    <span class="icon icon-payback"></span>
+                    <span>退款</span>
+                </div>
+                <div v-show="false" class="bar-item">
+                    <span class="icon icon-setout">
+                        <span class="num">1</span>
+                    </span>
+                    <span>待使用</span>
+                </div>
             </div>
             <div class="data-box">
-                <h2>最近订单</h2>
+                <h2>{{name}}</h2>
                 <ul class="data-list">
-                    <li class="order-item">
+                    <li @click="toOrderDetail(item.restaurantOrderId)" v-for="item in myOrderList" class="order-item">
                         <div class="item-head">
-                            <span>订单号:Y201507041586</span>
-                            <span>待付款</span>
+                            <span>订单号:{{item.orderId}}</span>
+                            <span>{{item.status}}</span>
                         </div>
                         <div class="item-content">
                             <div class="img-box">
-                                <img src="../images/hotel_item.png" alt="">
+                                <img :src="item.imgs[0]" alt="">
                             </div>
                             <div class="detail">
-                                <h3>蓉和小厨（高新店）</h3>
-                                <p>宫爆鸡丁x1、水煮鱼x1、麻辣小龙虾x1、炒时蔬...</p>
-                                <p>座位：12号桌，2人</p>
-                                <p>总价：¥239.00</p>
+                                <h3>{{item.name}}</h3>
+                                <p><span v-for="(food,index) in item.foods">{{food.name}}x{{food.count}}<span v-if="index!=item.foods.length-1">、</span> </span></p>
+                                <p>座位：{{item.seatName}}，{{item.orderInfo}}</p>
+                                <p>总价：{{item.orderMoney}}</p>
                             </div>
                         </div>
                         <div class="btn-box">
-                            <span class="btn-pay">去支付</span>
+                            <span @click="toPay(item.orderId,item.restaurantOrderId)" v-show="item.canPay" class="btn-pay">付款</span>
+                            <span @click="toComment(item.restaurantOrderId)" v-show="item.canComment" class="btn-comment">评价</span>
+                            <span @click="cancel(item.restaurantOrderId)" v-show="item.canCancel">取消订单</span>
+                            <span @click="reBook(item.restaurantOrderId)" v-show="!item.canPay&&!item.canComment&&!item.canCancel">再次预定</span>
                         </div>
                     </li>
-                    <li class="order-item">
-                        <div class="item-head">
-                            <span>订单号:Y201507041586</span>
-                            <span>待付款</span>
-                        </div>
-                        <div class="item-content">
-                            <div class="img-box">
-                                <img src="../images/hotel_item.png" alt="">
-                            </div>
-                            <div class="detail">
-                                <h3>渝味人家（高新理想中心店）</h3>
-                                <p>宫爆鸡丁x1、水煮鱼x1、麻辣小龙虾x1、炒时蔬...</p>
-                                <p>座位：12号桌，2人</p>
-                                <p>总价：¥239.00</p>
-                            </div>
-                        </div>
-                        <div class="btn-box">
-                            <span class="btn-pay">付款</span>
-                            <span class="btn-comment">评价</span>
-                        </div>
-                    </li>
-                    <li class="order-item">
-                        <div class="item-head">
-                            <span>订单号:Y201507041586</span>
-                            <span>待付款</span>
-                        </div>
-                        <div class="item-content">
-                            <div class="img-box">
-                                <img src="../images/hotel_item.png" alt="">
-                            </div>
-                            <div class="detail">
-                                <h3>蓉和小厨（高新店）</h3>
-                                <p>宫爆鸡丁x1、水煮鱼x1、麻辣小龙虾x1、炒时蔬...</p>
-                                <p>座位：12号桌，2人</p>
-                                <p>总价：¥239.00</p>
-                            </div>
-                        </div>
-                        <div class="btn-box">
-                            <span class="btn-pay">付款</span>
-                        </div>
+                    <li v-show="myOrderList.length==0" class="noOrder">
+                        <img src="../images/img-noOrder.png" alt="">
+                        <h3>暂无订单</h3>
+                        <p>可以去看看有哪些想要的</p>
                     </li>
                 </ul>
+            </div>
+            <!--
+               1、底部提示信息
+               2、这里有一种情况,就是没有更多数据时,这里的文本应该显示"暂无更多数据"
+           -->
+            <div v-show="myOrderList.length!=0" class="bottom-tip">
+                <span class="loading-hook">{{bottomTip}}</span>
             </div>
         </div>
     </div>
@@ -112,14 +86,21 @@
 
 <script src="../js/jquery-1.8.3.min.js"></script>
 <script src="../js/vue.js"></script>
-<script src="https://unpkg.com/better-scroll/dist/bscroll.min.js"></script>
+<script src="../js/bscroll.js"></script>
 <script src="../js/flexble.js"></script>
-
+<script src="../js/HttpHelper.js"></script>
 <script>
 
     var index = new Vue({
         el:'.container',
-        data:{},
+        data:{
+            myOrderList:[],
+            name:'全部订单',
+            status:-1,
+            pageIndex:1,
+            bottomTip : '加载更多',
+            hasNext : true,
+        },
         props:{
             probeType:{
                 type:Number,
@@ -151,21 +132,143 @@
             }
         },
         created(){
-
+            this.getMyOrders()
         },
         mounted(){
             setTimeout(this.init_scroll,20);
         },
         methods:{
             init_scroll:function () {
+                var _this =this;
                 if(!this.$refs.scroll){
                     return
                 }
                 this.scroll = new BScroll(this.$refs.scroll,{
                     probeType:this.probeType,
                     click:this.click
+                });
+                // 滑动结束 判断下拉刷新上拉加载
+                this.scroll.on('touchEnd', function (position) {
+                    if (position.y > 30) {
+                        //开始执行下拉刷新
+                        // _this.pageIndex = 1;
+                        // _this.pullUp(_this.pageIndex);
+                    }else if(position.y < (_this.scroll.maxScrollY - 30)) {
+                        //开始执行上拉加载
+                        if(_this.hasNext){
+                            _this.bottomTip = '加载中...';
+                            _this.pageIndex ++;
+                            _this.pullDown();
+                        }else{
+                            return false;
+                        }
+                    }
+                });
+            },
+            getMyOrders:function () {
+                var _this = this;
+                get('/api/Order/GetMyRestaurantOrders',{'page':_this.pageIndex,'status':_this.status},function(res){
+                    _this.myOrderList = _this.myOrderList.concat(res.list);
+                    // 加载更多后,重新计算滚动区域高度
+                    setTimeout(()=>{
+                        _this.scroll.refresh();
+                    },50);
+                    //改变提示文本值
+                    if(_this.myOrderList.length<res.total){
+                        _this.hasNext = true;
+                        _this.bottomTip = '加载更多'
+                    }else{
+                        _this.hasNext = false;
+                        _this.bottomTip = '暂无更多数据'
+                    }
                 })
             },
+            view_waitPay:function () {
+                var _this = this;
+                _this.status = 0;
+                _this.name = '待支付订单';
+                _this.myOrderList = [];
+                _this.pageIndex = 1;
+                _this.getMyOrders();
+            },
+            view_waitComment:function(){
+                var _this = this;
+                _this.status = -2;
+                _this.name = '待评论订单';
+                _this.myOrderList = [];
+                _this.pageIndex = 1;
+                _this.getMyOrders();
+
+            },
+            view_backMoney:function(){
+                var _this = this;
+                _this.status = 2;
+                _this.name = '退款订单';
+                _this.myOrderList = [];
+                _this.pageIndex = 1;
+                _this.getMyOrders();
+
+            },
+            view_allOrder:function () {
+                var _this = this;
+                _this.status = -1;
+                _this.name = '所有订单';
+                _this.myOrderList = [];
+                _this.pageIndex = 1;
+                _this.getMyOrders();
+            },
+            pullDown:function(){
+                var _this = this;
+                if(!_this.hasNext){
+                    return false;
+                }else{
+                    _this.getMyOrders();
+                }
+            },
+
+            //去评论
+            toComment:function (restaurantOrderId) {
+                window.location.href = 'setComment.html?id='+restaurantOrderId;
+            },
+            //去支付
+            toPay:function (orderId,restaurantOrderId) {
+                post('/api/Order/RePay',{orderId:orderId},function(res){
+                    wx.chooseWXPay({
+                        timestamp:res.timestamp,
+                        nonceStr:res.nonceStr,
+                        package:res.package,
+                        signType:res.signType,
+                        paySign:res.paySign,
+                        success:function(res){
+                            alert(res);
+                            window.location.href = 'responce.html?id='+restaurantOrderId+"&status=1";
+                        },
+                        fail:function (res) {
+                            alert('支付失败！');
+                            window.location.href = 'responce.html?id='+restaurantOrderId+"&status=2";
+                        }
+                    });
+                })
+            },
+            //取消订单
+            cancel:function (restaurantOrderId) {
+                post('/api/Order/BackRestaurantOrder',{restaurantOrderId:restaurantOrderId},function(res){
+                    console.log(res);
+                    if(res){
+                        window.location.href = 'responce.html?id='+restaurantOrderId+"&status=0";
+                    }
+
+                })
+            },
+            //再次预定
+            reBook:function (restaurantId) {
+                window.location.href = 'cafeInfo.html?id='+restaurantId;
+            },
+            //跳转订单详情
+            toOrderDetail:function (restaurantOrderId) {
+                window.location.href = 'orderDetail.html?id='+restaurantOrderId;
+            }
+
 
         }
     })

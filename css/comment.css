@@ -112,6 +112,10 @@
     background-repeat: no-repeat;
     background-position: center center;
 }
+.set-star-box>.icon-star.active{
+    background-image: url("../images/icon_star_active.png");
+    background-size: 100%;
+}
 .set-star-box .score{
     color: #ff6230;
     font-size: 0.32rem;

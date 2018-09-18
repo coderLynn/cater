@@ -14,25 +14,92 @@
 <section class="container">
     <div class="set-star-box">
         <span>总体</span>
-        <span class="icon-star"></span>
-        <span class="icon-star"></span>
-        <span class="icon-star"></span>
-        <span class="icon-star"></span>
-        <span class="icon-star"></span>
-        <span class="score">4.0分</span>
+        <span :class="{active:index<score}" @click="setScore(index)" v-for="(item,index) in 5" class="icon-star"></span>
+        <span class="score">{{score}}.0分</span>
     </div>
     <div class="set-comment-box">
-        <textarea placeholder="来分享你的消费感受吧！要写够15字哟~" name="" id="" cols="30" rows="10"></textarea>
+        <textarea v-model="textContent" placeholder="来分享你的消费感受吧！要写够15字哟~" name="" id="" cols="30" rows="10"></textarea>
     </div>
-    <div class="confirm-btn">完成</div>
+    <div @click="setComment" :class="{active:score&&textContent}" class="confirm-btn">完成</div>
+    <div v-show="attentionFlag" class="attention">
+        <p>{{attentionText }}</p>
+    </div>
 </section>
 
 <script src="../js/jquery-1.8.3.min.js"></script>
 <script src="../js/vue.js"></script>
-<script src="https://unpkg.com/better-scroll/dist/bscroll.min.js"></script>
+<script src="../js/bscroll.js"></script>
 <script src="../js/flexble.js"></script>
+<script src="../js/HttpHelper.js"></script>
+<script src="../js/alertEx.js"></script>
 <script>
 
+    var setComment = new Vue({
+        el:'.container',
+        data:{
+            setCommentUrl:'/api/User/CommentHotelOrder',
+            hotelOrderId:1,
+            score:0,
+            textContent:'',
+            attentionText:"发表评论成功！",
+            attentionFlag:false,
+        },
+        props:{
+            probeType:{
+                type:Number,
+                default:1
+            },
+            click:{
+                type:Boolean,
+                default:true
+            },
+            data:{
+                type:Array,
+                default:null
+            },
+            listenScroll:{
+                type:Boolean,
+                default:false
+            },
+            pullup:{
+                type:Boolean,
+                default:false,
+            },
+            beforeScroll:{
+                type:Boolean,
+                default:false
+            },
+            refreshDelay:{
+                type:Number,
+                default:20
+            }
+        },
+        created(){},
+        mounted(){},
+        methods:{
+            setScore:function(index){
+                this.score = index+1;
+            },
+            setComment:function () {
+                var _this = this;
+                post(_this.setCommentUrl,{hotelOrderId:_this.hotelOrderId,score:_this.score,content:_this.textContent},function(res){
+                    if(res.data){
+                       alert('发表评论成功！');
+                        window.location.href = 'mineOrder.html';
+                    }
+
+                });
+            },
+            showAttention:function () {
+                this.attentionFlag = true;
+                setTimeout(()=>{
+                    this.attentionFlag = false;
+                    window.location.href = 'mineOrder.html';
+                },1000)
+            }
+
+        }
+    })
 </script>
 </body>
 </html>

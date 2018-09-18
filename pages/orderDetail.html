@@ -17,30 +17,32 @@
         <div class="order-status-box">
             <div class="order-status">
                 <div>
-                    <span class="status">订单已完成</span>
-                    <span class="detail">详情</span>
+                    <span class="status">{{orderDetailInfo.status}}</span>
+                    <span v-show="false" class="detail">详情</span>
                 </div>
-                <p>在线支付：<span class="price">¥239</span></p>
-                <span class="time">时间：2018-07-04:  15:15</span>
+                <p>在线支付：<span class="price">¥{{orderDetailInfo.orderMoney}}</span></p>
+                <span class="time">时间：{{orderDetailInfo.createdTime}}</span>
             </div>
-            <div class="tool-bar">
-                <span>评价</span>
-                <span>再次预订</span>
+            <div v-show="orderDetailInfo.canComment||orderDetailInfo.canPay||orderDetailInfo.canCancel" class="tool-bar">
+                <span @click="toComment(orderDetailInfo.restaurantOrderId)" v-show="orderDetailInfo.canComment">评价</span>
+                <span @click="toPay(orderDetailInfo.orderId,orderDetailInfo.restaurantOrderId)" v-show="orderDetailInfo.canPay">去支付</span>
+                <span @click="cancel(orderDetailInfo.restaurantOrderId)" v-show="orderDetailInfo.canCancel">取消订单</span>
+                <span @click="reBook(orderDetailInfo.restaurantId)" v-show="num == 1">再次预订</span>
             </div>
         </div>
         <div class="totel-info-box">
             <div class="hotel-info cafe-info">
                 <div>
-                    <span class="name">鲁西肥牛（高新店）</span>
+                    <span class="name">{{orderDetailInfo.name}}</span>
                     <span class="view">商家信息</span>
                 </div>
-                <p>人数：2人</p>
-                <span>座位：大厅</span>
-                <span>地点：500m | 武侯区高新区天泰路338号</span>
+                <p>人数：{{orderDetailInfo.orderInfo}}</p>
+                <span>座位：{{orderDetailInfo.seatName}}</span>
+                <span v-show="false">地点：500m | 武侯区高新区天泰路338号</span>
             </div>
             <div class="tool-bar">
-                <span>查看路线</span>
-                <span>联系商家</span>
+                <span @click="view_line">查看路线</span>
+                <a :href="'tel:'+orderDetailInfo.tel"><span>联系商家</span></a>
             </div>
         </div>
         <div class="checked-info">
@@ -78,9 +80,9 @@
         <div class="order-info">
             <div class="title">订单信息</div>
             <ul class="list">
-                <li><span>订单号</span><span>20180704963</span></li>
+                <li><span>订单号</span><span>{{orderDetailInfo.orderNo}}</span></li>
                 <li><span>支付方式</span><span>在线支付</span></li>
-                <li><span>下单时间</span><span>2018-07-04  08:57</span></li>
+                <li><span>下单时间</span><span>{{orderDetailInfo.createdTime}}</span></li>
             </ul>
         </div>
     </div>
@@ -90,11 +92,18 @@
 <script src="../js/vue.js"></script>
 <script src="../js/bscroll.js"></script>
 <script src="../js/flexble.js"></script>
+<script src="../js/HttpHelper.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.1.0.js"> </script>
+<script src="../js/WeChatJSSDK.js"></script>
+<script charset="utf-8" src="https://map.qq.com/api/js?v=2.exp"></script>
 
 <script>
     var index = new Vue({
         el:'.container',
-        data:{},
+        data:{
+            orderDetailInfo:{},
+            num:0,
+        },
         props:{
             probeType:{
                 type:Number,
@@ -126,7 +135,7 @@
             }
         },
         created(){
-
+            this.getOrderDetail();
         },
         mounted(){
             setTimeout(this.init_scroll,20);
@@ -141,6 +150,93 @@
                     click:this.click
                 })
             },
+            //获取订单详情数据
+            getOrderDetail:function () {
+                var _this = this;
+                get('/api/Order/GetMyRestaurantOrder',{restaurantOrderId:GetQueryString('id')},function(res){
+                    _this.orderDetailInfo = res;
+                    _this._init_state();
+
+                })
+            },
+            //判断可操作的状态数量
+            _init_state:function(){
+                var _this = this;
+                if(_this.orderDetailInfo.canCancel){
+                    _this.num++;
+                }
+                if(_this.orderDetailInfo.canComment){
+                    _this.num++;
+                }
+                if(_this.orderDetailInfo.canPay){
+                    _this.num ++;
+                }
+                if(_this.orderDetailInfo.canBackRoom){
+                    _this.num ++;
+                }
+            },
+            //根据状态 className
+            getClassName:function(){
+                var _this = this;
+                switch (_this.orderDetailInfo.status){
+                    case '1':return 'green';
+                    case '2':return 'orange';
+                    case '3':return 'grey';
+                }
+            },
+            //去评论
+            toComment:function (restaurantOrderId) {
+                window.location.href = 'setComment.html?id='+restaurantOrderId;
+            },
+            //去支付
+            toPay:function (orderId,restaurantOrderId) {
+                post('/api/Order/RePay',{orderId:orderId},function(res){
+                    wx.chooseWXPay({
+                        timestamp:res.timestamp,
+                        nonceStr:res.nonceStr,
+                        package:res.package,
+                        signType:res.signType,
+                        paySign:res.paySign,
+                        success:function(res){
+                            alert(res);
+                            window.location.href = 'responce.html?id='+restaurantOrderId+"&status=1";
+                        },
+                        fail:function (res) {
+                            alert('支付失败！');
+                            window.location.href = 'responce.html?id='+restaurantOrderId+"&status=2";
+                        }
+                    });
+                })
+            },
+            //取消订单
+            cancel:function (restaurantOrderId) {
+                post('/api/Order/BackRestaurantOrder',{restaurantOrderId:restaurantOrderId},function(res){
+                    console.log(res);
+                    if(res){
+                        window.location.href = 'responce.html?id='+restaurantOrderId+"&status=0";
+                    }
+
+                })
+            },
+            //再次预定
+            reBook:function (restaurantId) {
+                window.location.href = 'cafeInfo.html?id='+restaurantId;
+            },
+            //查看路线
+            view_line:function () {
+                var _this = this;
+                Wechat(function (wx) {
+                    wx.openLocation({
+                        latitude: _this.orderDetailInfo.lat, // 纬度，浮点数，范围为90 ~ -90
+                        longitude: _this.orderDetailInfo.lng, // 经度，浮点数，范围为180 ~ -180。
+                        name: '', // 位置名
+                        address: '', // 地址详情说明
+                        scale: 16, // 地图缩放级别,整形值,范围从1~28。默认为最大
+                        infoUrl: '' // 在查看位置界面底部显示的超链接,可点击跳转
+                    });
+                });
+            },
+
         }
     })
 </script>

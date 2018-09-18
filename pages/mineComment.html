@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-touch-fullscreen" content="yes">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/comment.css">
+    <title>我的评论</title>
+</head>
+<body>
+
+<section  class="container" v-cloak>
+    <div class="scroll" ref="scroll">
+        <div>
+            <!-- 顶部提示信息 -->
+            <div v-show="false" class="top-tip">
+                <span class="refresh-hook">{{topTip}}</span>
+            </div>
+            <!-- alert -->
+            <transition name="refresh-alert">
+                <div v-show="refreshSuccess" class="alert alert-hook">刷新成功</div>
+            </transition>
+            <div class="tool-bar">
+                <div v-cloak class="all-btn active"> 全部({{myCommentNum}})</div>
+                <div v-show="false" class="low-btn"> 低分()</div>
+            </div>
+            <ul v-if="commentList.length>0" class="comment-list">
+                <li v-for="item in commentList">
+                    <div class="user-icon">
+                        <img :src="item.head" alt="">
+                    </div>
+                    <div class="com-content">
+                        <div class="com-info">
+                            <span class="name">{{item.nick}}</span>
+                            <span class="date">{{item.time}}发表</span>
+                        </div>
+                        <div class="score-box">
+                            <span>打分</span>
+                            <span v-for="star in item.score" class="icon-star icon-star-active"></span>
+                            <span v-for="star in item.leftScore" class="icon-star"></span>
+                        </div>
+                        <p>{{item.content}}</p>
+                        <span>{{item.name}}</span>
+                    </div>
+                </li>
+            </ul>
+            <div v-show="commentList.length==0" class="noOrder">
+                <img src="../images/img-noOrder.png" alt="">
+                <h3>暂无评价</h3>
+                <!--<p>可以去看看有哪些想要的</p>-->
+            </div>
+
+            <!--
+                1、底部提示信息
+                2、这里有一种情况,就是没有更多数据时,这里的文本应该显示"暂无更多数据"
+            -->
+            <div v-show="commentList.length!=0" class="bottom-tip">
+                <span class="loading-hook">{{bottomTip}}</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="../js/jquery-1.8.3.min.js"></script>
+<script src="../js/vue.js"></script>
+<!--<script src="https://unpkg.com/better-scroll/dist/bscroll.min.js"></script>-->
+<script src="../js/bscroll.js"></script>
+<script src="../js/flexble.js"></script>
+<script src="../js/HttpHelper.js"></script>
+<script>
+
+    var index = new Vue({
+        el:'.container',
+        data:{
+            getMineCommentListUrl:'/api/User/GetMyHotelComments',
+            commentList:[],
+            myCommentNum:0,
+            firstLoad:true,
+            topTip:'下拉刷新',
+            bottomTip:'加载更多',
+            refreshSuccess:false,
+            pageIndex:1,
+            hasNext:true,
+        },
+        props:{
+            probeType:{
+                type:Number,
+                default:1
+            },
+            click:{
+                type:Boolean,
+                default:true
+            },
+            data:{
+                type:Array,
+                default:null
+            },
+            listenScroll:{
+                type:Boolean,
+                default:false
+            },
+            pullup:{
+                type:Boolean,
+                default:false,
+            },
+            beforeScroll:{
+                type:Boolean,
+                default:false
+            },
+            refreshDelay:{
+                type:Number,
+                default:20
+            }
+        },
+        created(){
+            var _this = this;
+            this.pullUp(_this.pageIndex);
+        },
+        mounted(){
+            setTimeout(this.init_scroll,20);
+        },
+        methods:{
+            init_scroll:function () {
+                var _this = this;
+                if(!this.$refs.scroll){
+                    return
+                }
+                this.scroll = new BScroll(this.$refs.scroll,{
+                    probeType:this.probeType,
+                    click:this.click
+                })
+                // 滑动结束 判断下拉刷新上拉加载
+                this.scroll.on('touchEnd', function (position) {
+                    if (position.y > 30) {
+                        //开始执行下拉刷新
+                        // _this.pageIndex = 1;
+                        // _this.pullUp(_this.pageIndex);
+                    }else if(position.y < (_this.scroll.maxScrollY - 30)) {
+                        //开始执行上拉加载
+                        if(_this.hasNext){
+                            _this.bottomTip = '加载中...';
+                            _this.pageIndex ++;
+                            _this.pullDown(_this.pageIndex);
+                        }else{
+                            return;
+                        }
+                    }
+                });
+            },
+            pullUp:function(pageIndex){
+                var _this = this;
+                get(_this.getMineCommentListUrl,{page:pageIndex},function(res){
+                    _this.commentList = res.list;
+                    _this.myCommentNum = res.total;
+                    _this.commentList.forEach((item)=>{
+                        item.leftScore = 5 - item.score;
+                    });
+                    //如果不是第一次加载，显示下拉刷新提示文字信息
+                    if(!_this.firstLoad){
+                        // 恢复文本值
+                        _this.topTip = '下拉刷新';
+                        // 刷新成功后的提示
+                        _this.refreshSuccess = true;
+                        // 刷新列表后,重新计算滚动区域高度
+                        _this.scroll.refresh();
+                        setTimeout(function(){
+                            _this.refreshSuccess = false;
+                        },1000);
+                    }
+                    _this.firstLoad = false;
+                    if(res.list.length<10){
+                        _this.hasNext = false;
+                    }else{
+                        _this.hasNext = true;
+                    }
+                });
+            },
+            pullDown:function (pageIndex) {
+                var _this = this;
+                if(_this.commentList.length<_this.myCommentNum){
+                    _this.hasNext = true;
+                    get(_this.getMineCommentListUrl,{page:pageIndex},function(res){
+                        // 向列表添加数据
+                        _this.commentList = _this.commentList.concat(res.list);
+                        _this.myCommentNum = res.total;
+                        _this.commentList.forEach((item)=>{
+                            item.leftScore = 5 - item.score;
+                        });
+                        // 加载更多后,重新计算滚动区域高度
+                        setTimeout(()=>{
+                            _this.scroll.refresh();
+                        },50);
+                        // 恢复文本值
+                        if(res.list.length<10){
+                            _this.hasNext = false;
+                            _this.bottomTip = '暂无更多数据';
+                        }else{
+                            _this.bottomTip = '加载更多';
+                            _this.hasNext = true;
+                        }
+
+
+                        console.log(_this.commentList);
+                    });
+                }else{
+                    _this.hasNext = false;
+                    return
+                }
+
+            }
+        }
+    })
+</script>
+
+</body>
+</html>
