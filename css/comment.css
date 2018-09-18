@@ -140,3 +140,6 @@
     position: absolute;
     bottom: 0;
 }
+.confirm-btn.active {
+    background-color: #ff6230;
+}
