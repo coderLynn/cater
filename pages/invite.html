@@ -14,20 +14,41 @@
     <div class="invite-box">
         <div class="invite-img"></div>
         <div class="box">
-            <p>未来很远26</p>
-            <p>在<span>鲁西肥牛（九方购物中心）</span></p>
+            <p>{{info.linkman}}</p>
+            <p>在<span>{{info.name}}</span></p>
             <p>这里请你吃饭</p>
             <h2>快来约约约！</h2>
         </div>
         <div class="address">
-            <p>时间：2018/07/06 14:00</p>
-            <p>地点：成都市武侯区高新区天泰路338号</p>
-            <p>座位：大厅15号桌</p>
+            <p>时间：{{info.arriveTime}}</p>
+            <p>地点：{{info.address}}</p>
+            <p>座位：{{info.seatName}}</p>
         </div>
     </div>
 
     <script src="../js/jquery-1.8.3.min.js"></script>
     <script src="../js/vue.js"></script>
     <script src="../js/flexble.js"></script>
+    <script src="../js/HttpHelper.js"></script>
+    <script>
+        var invite = new Vue({
+            el:".invite-box",
+            data:{
+                info:{},
+                restaurantOrderId:1,
+            },
+            created(){
+                this.getInfo();
+            },
+            methods:{
+                getInfo:function () {
+                    var _this = this;
+                    get('/api/Order/GetMyRestaurantOrder',{restaurantOrderId:_this.restaurantOrderId},function (res) {
+                        _this.info = res;
+                    })
+                }
+            }
+        })
+    </script>
 </body>
 </html>

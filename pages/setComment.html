@@ -37,7 +37,7 @@
     var setComment = new Vue({
         el:'.container',
         data:{
-            setCommentUrl:'/api/User/CommentHotelOrder',
+            setCommentUrl:'/api/User/AddCommentRestaurantOrder',
             hotelOrderId:1,
             score:0,
             textContent:'',
@@ -82,7 +82,7 @@
             },
             setComment:function () {
                 var _this = this;
-                post(_this.setCommentUrl,{hotelOrderId:_this.hotelOrderId,score:_this.score,content:_this.textContent},function(res){
+                post(_this.setCommentUrl,{restaurantOrderId:GetQueryString('id'),score:_this.score,content:_this.textContent},function(res){
                     if(res.data){
                        alert('发表评论成功！');
                         window.location.href = 'mineOrder.html';

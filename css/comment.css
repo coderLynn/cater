@@ -148,3 +148,27 @@
 .confirm-btn.active {
     background-color: #ff6230;
 }
+
+/*没有订单数据样式*/
+.noOrder{
+    width: 100%;
+    text-align: center;
+    padding-top: 1.36rem;
+}
+.noOrder img{
+    width: 2.5rem;
+    height: 2.5rem;
+    margin: auto;
+}
+.noOrder h3{
+    font-size: 0.35rem;
+    color: #333333;
+    margin-top: 0.58rem;
+    text-align: center;
+}
+.noOrder p{
+    font-size: 0.27rem;
+    color: #999999;
+    margin-top: 0.3rem;
+    text-align: center;
+}

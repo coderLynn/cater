@@ -12,159 +12,71 @@
 </head>
 <body>
 
-<section class="container">
+<section v-cloak class="container">
     <div class="scroll" ref="scroll">
         <div>
             <div class="tool-bar">
-                <div class="all-btn active"> 全部(140)</div>
-                <div class="low-btn"> 低分(14)</div>
+                <div @click="view_allComment" :class="{'active':choose==='all'}" class="all-btn"> 全部({{commentNum}})</div>
+                <div @click="view_lowerComment" :class="{'active':choose==='low'}"  class="low-btn"> 低分({{lowerNum}})</div>
             </div>
             <ul class="comment-list">
-                <li>
+                <li v-for="item in commentList">
                     <div class="user-icon">
-                        <img src="../images/hotel_item.png" alt="">
+                        <img :src="item.head" alt="">
                     </div>
                     <div class="com-content">
                         <div class="com-info">
-                            <span class="name">傲慢与偏见</span>
-                            <span class="date">2018-07-07发表</span>
+                            <span class="name">{{item.nick}}</span>
+                            <span class="date">{{item.time}}发表</span>
                         </div>
                         <div class="score-box">
                             <span>打分</span>
-                            <span class="icon-star icon-star-active"></span>
-                            <span class="icon-star icon-star-active"></span>
-                            <span class="icon-star icon-star-active"></span>
-                            <span class="icon-star icon-star-active"></span>
-                            <span class="icon-star"></span>
+                            <span v-for="star in item.score" class="icon-star icon-star-active"></span>
+                            <span v-for="star in item.leftScore" class="icon-star"></span>
                         </div>
-                        <p>
-                            酒店其实挺好的，一开始看网评有的说房间太
-                            小了，但我感觉并不小哈，装修也有自己的风
-                            格。位置真的不错，离地铁站只要10分钟就走
-                            到了。
-                        </p>
-                        <span>商务标准大床房</span>
-                    </div>
-                </li>
-                <li>
-                    <div class="user-icon">
-                        <img src="../images/hotel_item.png" alt="">
-                    </div>
-                    <div class="com-content">
-                        <div class="com-info">
-                            <span class="name">傲慢与偏见</span>
-                            <span class="date">2018-07-07发表</span>
-                        </div>
-                        <div class="score-box">
-                            <span>打分</span>
-                            <span class="icon-star icon-star-active"></span>
-                            <span class="icon-star icon-star-active"></span>
-                            <span class="icon-star icon-star-active"></span>
-                            <span class="icon-star icon-star-active"></span>
-                            <span class="icon-star"></span>
-                        </div>
-                        <p>
-                            酒店其实挺好的，一开始看网评有的说房间太
-                            小了，但我感觉并不小哈，装修也有自己的风
-                            格。位置真的不错，离地铁站只要10分钟就走
-                            到了。
-                        </p>
-                        <span>商务标准大床房</span>
-                    </div>
-                </li>
-                <li>
-                    <div class="user-icon">
-                        <img src="../images/hotel_item.png" alt="">
-                    </div>
-                    <div class="com-content">
-                        <div class="com-info">
-                            <span class="name">傲慢与偏见</span>
-                            <span class="date">2018-07-07发表</span>
-                        </div>
-                        <div class="score-box">
-                            <span>打分</span>
-                            <span class="icon-star icon-star-active"></span>
-                            <span class="icon-star icon-star-active"></span>
-                            <span class="icon-star icon-star-active"></span>
-                            <span class="icon-star icon-star-active"></span>
-                            <span class="icon-star"></span>
-                        </div>
-                        <p>
-                            酒店其实挺好的，一开始看网评有的说房间太
-                            小了，但我感觉并不小哈，装修也有自己的风
-                            格。位置真的不错，离地铁站只要10分钟就走
-                            到了。
-                        </p>
-                        <span>商务标准大床房</span>
-                    </div>
-                </li>
-                <li>
-                    <div class="user-icon">
-                        <img src="../images/hotel_item.png" alt="">
-                    </div>
-                    <div class="com-content">
-                        <div class="com-info">
-                            <span class="name">傲慢与偏见</span>
-                            <span class="date">2018-07-07发表</span>
-                        </div>
-                        <div class="score-box">
-                            <span>打分</span>
-                            <span class="icon-star icon-star-active"></span>
-                            <span class="icon-star icon-star-active"></span>
-                            <span class="icon-star icon-star-active"></span>
-                            <span class="icon-star icon-star-active"></span>
-                            <span class="icon-star"></span>
-                        </div>
-                        <p>
-                            酒店其实挺好的，一开始看网评有的说房间太
-                            小了，但我感觉并不小哈，装修也有自己的风
-                            格。位置真的不错，离地铁站只要10分钟就走
-                            到了。
-                        </p>
-                        <span>商务标准大床房</span>
-                    </div>
-                </li>
-                <li>
-                    <div class="user-icon">
-                        <img src="../images/hotel_item.png" alt="">
-                    </div>
-                    <div class="com-content">
-                        <div class="com-info">
-                            <span class="name">傲慢与偏见</span>
-                            <span class="date">2018-07-07发表</span>
-                        </div>
-                        <div class="score-box">
-                            <span>打分</span>
-                            <span class="icon-star icon-star-active"></span>
-                            <span class="icon-star icon-star-active"></span>
-                            <span class="icon-star icon-star-active"></span>
-                            <span class="icon-star icon-star-active"></span>
-                            <span class="icon-star"></span>
-                        </div>
-                        <p>
-                            酒店其实挺好的，一开始看网评有的说房间太
-                            小了，但我感觉并不小哈，装修也有自己的风
-                            格。位置真的不错，离地铁站只要10分钟就走
-                            到了。
-                        </p>
-                        <span>商务标准大床房</span>
+                        <p>{{item.content}}</p>
+                        <span>{{item.name}}</span>
                     </div>
                 </li>
             </ul>
+            <div v-show="commentList.length==0" class="noOrder">
+                <img src="../images/img-noOrder.png" alt="">
+                <h3>暂无评价</h3>
+                <!--<p>可以去看看有哪些想要的</p>-->
+            </div>
+            <!--
+                1、底部提示信息
+                2、这里有一种情况,就是没有更多数据时,这里的文本应该显示"暂无更多数据"
+            -->
+            <div v-show="commentList.length!=0" class="bottom-tip">
+                <span class="loading-hook">{{bottomTip}}</span>
+            </div>
         </div>
     </div>
 </section>
 
 <script src="../js/jquery-1.8.3.min.js"></script>
 <script src="../js/vue.js"></script>
-<script src="https://unpkg.com/better-scroll/dist/bscroll.min.js"></script>
+<!--<script src="https://unpkg.com/better-scroll/dist/bscroll.min.js"></script>-->
+<script src="../js/bscroll.js"></script>
 <script src="../js/flexble.js"></script>
-
+<script src="../js/HttpHelper.js"></script>
 <script>
 
     var index = new Vue({
         el:'.container',
-        data:{},
+        data:{
+            getCommentListUrl:'/api/Restaurant/GetComments',
+            restaurantId:1,
+            commentList:[],
+            commentNum:0,
+            lowerNum:0,
+            score:5,
+            choose:'all',
+            bottomTip:'加载更多',
+            hasNext:true,
+            pageIndex:1,
+        },
         props:{
             probeType:{
                 type:Number,
@@ -196,21 +108,96 @@
             }
         },
         created(){
-
+            this.getCommentList();
+            this.getLowerCommentNum();
         },
         mounted(){
             setTimeout(this.init_scroll,20);
         },
         methods:{
             init_scroll:function () {
+                var _this = this;
                 if(!this.$refs.scroll){
                     return
                 }
                 this.scroll = new BScroll(this.$refs.scroll,{
                     probeType:this.probeType,
                     click:this.click
-                })
+                });
+                // 滑动结束 判断下拉刷新上拉加载
+                this.scroll.on('touchEnd', function (position) {
+                    if (position.y > 30) {
+                        //开始执行下拉刷新
+                        // _this.pageIndex = 1;
+                        // _this.pullUp(_this.pageIndex);
+                    }else if(position.y < (_this.scroll.maxScrollY - 30)) {
+                        //开始执行上拉加载
+                        if(_this.hasNext){
+                            _this.bottomTip = '加载中...';
+                            _this.pageIndex ++;
+                            _this.pullDown(_this.pageIndex);
+                        }else{
+                            return;
+                        }
+                    }
+                });
             },
+            getLowerCommentNum:function(){
+                var _this = this;
+                get(_this.getCommentListUrl,{page:1,restaurantId:_this.restaurantId,maxScore:3},function(res){
+                    _this.lowerNum = res.total;
+                });
+            },
+            getCommentList:function () {
+                var _this = this;
+                get(_this.getCommentListUrl,{page:_this.pageIndex,restaurantId:_this.restaurantId,maxScore:_this.score},function(res){
+                    _this.commentList = _this.commentList.concat(res.list);
+                    if(_this.score == 5){
+                        _this.commentNum = res.total;
+                    }
+                    _this.commentList.forEach((item)=>{
+                        item.leftScore = 5 - item.score;
+                    });
+                    // 加载更多后,重新计算滚动区域高度
+                    setTimeout(()=>{
+                        _this.scroll.refresh();
+                    },50);
+                    if(_this.commentList.length<res.total){
+                        _this.hasNext = true;
+                        _this.bottomTip = '加载更多'
+                    }else{
+                        _this.hasNext = false;
+                        _this.bottomTip = '暂无更多数据'
+                    }
+                });
+            },
+            view_lowerComment:function () {
+                var _this = this;
+                _this.commentList = [];
+                _this.choose = 'low';
+                _this.pageIndex = 1;
+                _this.score = 3;
+                _this.getCommentList();
+            },
+            view_allComment:function () {
+                var _this = this;
+                _this.commentList =  [];
+                _this.choose = 'all';
+                _this.pageIndex = 1;
+                _this.score = 5;
+                _this.getCommentList();
+            },
+            pullDown:function (pageIndex) {
+                var _this = this;
+                if(!_this.hasNext){
+                    return false;
+                    //判断是否有下一页 若没有
+                }else{
+                    //若有
+                    _this.getCommentList();
+                }
+
+            }
 
         }
     })

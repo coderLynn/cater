@@ -60,10 +60,10 @@
                             </div>
                         </div>
                         <div class="btn-box">
-                            <span @click="toPay(item.orderId,item.restaurantOrderId)" v-show="item.canPay" class="btn-pay">付款</span>
-                            <span @click="toComment(item.restaurantOrderId)" v-show="item.canComment" class="btn-comment">评价</span>
-                            <span @click="cancel(item.restaurantOrderId)" v-show="item.canCancel">取消订单</span>
-                            <span @click="reBook(item.restaurantOrderId)" v-show="!item.canPay&&!item.canComment&&!item.canCancel">再次预定</span>
+                            <span @click.stop="toPay(item.orderId,item.restaurantOrderId)" v-show="item.canPay" class="btn-pay">付款</span>
+                            <span @click.stop="toComment(item.restaurantOrderId)" v-show="item.canComment" class="btn-comment">评价</span>
+                            <span @click.stop="cancel(item.restaurantOrderId)" v-show="item.canCancel">取消订单</span>
+                            <span @click.stop="reBook(item.restaurantOrderId)" v-show="!item.canPay&&!item.canComment&&!item.canCancel">再次预定</span>
                         </div>
                     </li>
                     <li v-show="myOrderList.length==0" class="noOrder">
