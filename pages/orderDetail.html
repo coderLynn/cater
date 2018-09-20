@@ -34,7 +34,7 @@
             <div class="hotel-info cafe-info">
                 <div>
                     <span class="name">{{orderDetailInfo.name}}</span>
-                    <span class="view">商家信息</span>
+                    <span @click="reBook(orderDetailInfo.restaurantId)" class="view">商家信息</span>
                 </div>
                 <p>人数：{{orderDetailInfo.orderInfo}}</p>
                 <span>座位：{{orderDetailInfo.seatName}}</span>
@@ -47,34 +47,19 @@
         </div>
         <div class="checked-info">
             <div class="title">菜单详情</div>
-            <div>
-                <p>锅底 3 选 2（可重复选）</p>
+            <div v-for="food in foodInfo">
+                <p>{{food.type}}</p>
                 <ul>
-                    <li><span>清油麻辣锅（1份）</span><span>￥10</span></li>
-                    <li><span>老坛酸菜锅（1份）</span><span>￥10</span></li>
-                </ul>
-            </div>
-            <div>
-                <p>荤菜</p>
-                <ul>
-                    <li><span>清油麻辣锅（1份）</span><span>￥10</span></li>
-                    <li><span>老坛酸菜锅（1份）</span><span>￥10</span></li>
-                </ul>
-            </div>
-            <div>
-                <p>素菜</p>
-                <ul>
-                    <li><span>土豆（1份）</span><span>￥10</span></li>
-                    <li><span>藕片（1份）</span><span>￥10</span></li>
+                    <li v-for="item in food.value"><span>{{item.name}}</span><span>￥{{item.price}}</span></li>
                 </ul>
             </div>
         </div>
         <div class="bill-info">
             <div class="title">发票信息</div>
             <ul class="list">
-                <li><span>发票明细 </span><span>餐饮费  239元</span></li>
-                <li><span>发票抬头  </span><span>sfgrfg8</span></li>
-                <li><span>纳税人识别号</span><span>12345689796641666</span></li>
+                <li><span>发票明细 </span><span>如需发票请到店咨询</span></li>
+                <li v-show="false"><span>发票抬头  </span><span>sfgrfg8</span></li>
+                <li v-show="false"><span>纳税人识别号</span><span>12345689796641666</span></li>
             </ul>
         </div>
         <div class="order-info">
@@ -102,6 +87,7 @@
         el:'.container',
         data:{
             orderDetailInfo:{},
+            foodInfo:[],
             num:0,
         },
         props:{
@@ -156,6 +142,21 @@
                 get('/api/Order/GetMyRestaurantOrder',{restaurantOrderId:GetQueryString('id')},function(res){
                     _this.orderDetailInfo = res;
                     _this._init_state();
+                //根据点菜类别 修改数据格式
+                    res.foods.forEach((item) =>{
+                        let type = item.typeName;
+                        if(_this.foodInfo.length==0){
+                            _this.foodInfo.push({type:type,value:[item]})
+                        }else{
+                            _this.foodInfo.forEach((item2,index) =>{
+                                if( item2.type == type){
+                                    item2.value.push(item)
+                                }else if(index==_this.foodInfo.length-1){
+                                    _this.foodInfo.push({type:type,value:[item]})
+                                }
+                            })
+                        }
+                    });
 
                 })
             },
